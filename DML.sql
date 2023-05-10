@@ -9,10 +9,10 @@ INSERT INTO Users(fname, lname, email, phone, smoking, pets, gender, age)
     VALUES (:fname_input, :lname_input, :email_input, :phone_input, :smoking_input, :pets_input, :gender_input, :age_input);
 
 --show
-
+SELECT * FROM Users;
 
 --Select a specific user
-SELECT * FROM Users WHERE fname = :fname_input
+SELECT * FROM Users WHERE fname = :fname_input;
 
 --Update an user entry
 UPDATE Users SET 
@@ -37,7 +37,7 @@ DELETE FROM Users WHERE user_id = :user_id_input;
 
 --Create a tenant entry and associate it with an address
 INSERT INTO Tenants(user_id, role) VALUES (:user_id_input, :role_input);
-INSERT INTO TenantDirectory(user_id, property_id) VALUES (:user_id_input, :property_id_input);
+INSERT INTO TenantDirectory(user_id, address) VALUES (:user_id_input, :address_id_input);
 
 --Read the table
 SELECT * FROM Tenants;
@@ -47,13 +47,14 @@ UPDATE Tenants SET role = :role_input WHERE user_id = :user_id_input;
 
 --Remove a tenant entry
 DELETE FROM Tenants WHERE user_id = :user_id_input;
+DELETE FROM TenantDirectory WHERE user_id = :user_id_input;
 --Need to implement the CASCADE function to delete from directory
 
 
 
 --SEEKERS----------------------------------------
 --Create a seeker entry
-INSERT INTO Seekers(user_id, role) VALUES (:user_id_input, :role_input);
+INSERT INTO Seekers(user_id, price_upper, price_lower) VALUES (:user_id_input, :price_upper_input, :price_lower_input);
 
 --Read the table
 SELECT * FROM Seekers;
@@ -69,7 +70,8 @@ DELETE FROM Seekers WHERE user_id = :user_id_input;
 
 --INFORMATIONREQUESTS-----------------------------
 --Create an information request
-INSERT INTO InformationRequests(user_id, date_contacted, address);
+INSERT INTO InformationRequests(user_id, date_contacted, address) 
+    VALUES (:user_id_input, :date_contacted_input, :address_input);
 
 --Read table
 SELECT * FROM InformationRequests;
@@ -80,8 +82,8 @@ SELECT * FROM InformationRequests;
 
 --PROPERTIES------------------------------
 --Create a property
-INSERT INTO Properties(address, rooms, bathrooms, sq_ft, rent, utilities, description)
-    VALUES(:address_input, :rooms_input, :bathrooms_input, :sq_ft_input, :rent_input, :utilities_input, :description_input);
+INSERT INTO Properties(address, rooms, bathrooms, sqft, rent, utilities, description)
+    VALUES(:address_input, :rooms_input, :bathrooms_input, :sqft_input, :rent_input, :utilities_input, :description_input);
 
 --Read the table
 SELECT * FROM Properties;
@@ -90,10 +92,10 @@ SELECT * FROM Properties;
 SELECT * FROM Properties WHERE address = :address_input;
 
 --Update a property
-UPDATE SET 
+UPDATE Properties SET 
         rooms = :rooms_input, 
         bathrooms = :bathroom_input, 
-        sq_ft = :sq_ft_input, 
+        sqft = :sqft_input, 
         rent = :rent_input, 
         utilities = :utilities_input, 
         description = :description_input 

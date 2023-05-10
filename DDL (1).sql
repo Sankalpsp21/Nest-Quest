@@ -5,6 +5,8 @@ SET AUTOCOMMIT = 0;
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users(
   user_id int NOT NULL AUTO_INCREMENT,
+  fname varchar(45),
+  lname varchar(45),
   email varchar(45),
   phone varchar(45),
   smoking varchar(45),
@@ -62,7 +64,7 @@ CREATE TABLE InformationRequests(
   date_contacted DATE NOT NULL,
   address varchar(45),
 
-  PRIMARY KEY (user_id),
+  PRIMARY KEY (user_id,address),
   FOREIGN KEY (user_id) REFERENCES Seekers(user_id) ON DELETE CASCADE,
   FOREIGN KEY (address) REFERENCES Properties(address) ON DELETE CASCADE
 );
