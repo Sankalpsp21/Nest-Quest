@@ -39,7 +39,7 @@ CREATE TABLE Tenants(
   
 
   PRIMARY KEY (user_id),
-  FOREIGN KEY (user_id) REFERENCES Users(user_id)
+  FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
 
@@ -50,7 +50,7 @@ CREATE TABLE Seekers(
   price_lower int,
 
   PRIMARY KEY (user_id),
-  FOREIGN KEY (user_id) REFERENCES Users(user_id)
+  FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
 
@@ -63,8 +63,8 @@ CREATE TABLE InformationRequests(
   address varchar(45),
 
   PRIMARY KEY (user_id),
-  FOREIGN KEY (user_id) REFERENCES Seekers(user_id),
-  FOREIGN KEY (address) REFERENCES Properties(address)
+  FOREIGN KEY (user_id) REFERENCES Seekers(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (address) REFERENCES Properties(address) ON DELETE CASCADE
 );
 
 
@@ -81,8 +81,8 @@ CREATE TABLE Reviews(
   PRIMARY KEY (review_id),
   CONSTRAINT review_id UNIQUE (review_id),
 
-  FOREIGN KEY (user_id) REFERENCES Users(user_id),
-  FOREIGN KEY (address) REFERENCES Properties(address)
+  FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (address) REFERENCES Properties(address) ON DELETE CASCADE
 );
 
 
@@ -92,8 +92,8 @@ CREATE TABLE TenantDirectory(
   user_id int NOT NULL,
   address varchar(45),
 
-  FOREIGN KEY (user_id) REFERENCES Tenants(user_id),
-  FOREIGN KEY (address) REFERENCES Properties(address),
+  FOREIGN KEY (user_id) REFERENCES Tenants(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (address) REFERENCES Properties(address) ON DELETE CASCADE,
   PRIMARY KEY (user_id, address)
 );
 
