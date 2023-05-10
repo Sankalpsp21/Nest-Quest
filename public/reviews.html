@@ -1,0 +1,157 @@
+<html>
+<head>
+<title>Reviews</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newUser() { showform('insert'); }
+    function updateUser(pid) { showform('update'); }
+    function deleteUser(pid) { showform ('delete'); }
+    function browseUser() { showform ('browse'); }
+</script>
+</head>
+
+<body onload="browseUser()">
+
+  <header>
+
+    <h1 class="site-title"><a href="index.html">Nest Quest</a></h1>
+    [ <a href="">Users</a> | <a href="seekers.html">Seekers</a> | <a href="tenantsAndDirectory.html">Tenants and Directory</a> |  <a href="informationRequests.html">Information Requests</a> | <a href="properties.html">Properties</a> |  <a href="reviews.html">Reviews</a>]
+
+
+  </header>
+
+<h2>Reviews</h2>
+
+<div id="browse">
+<p></p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newUser()">New</a></th>
+    <th>review_id</th>
+    <th>user_id</th>
+    <th>stars</th>
+    <th>address</th>
+    <th>pictures</th>
+    <th>description</th>
+  </tr>
+  <tr>
+    <th></th>
+    <td align="right" >1</td>
+    <td align="right" >1</td>
+    <td >4</td>
+    <td >23465 west ave</td>
+    <td > </td>
+    <td >great place! The location is nice</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+
+<div id="insert">
+    <form method="POST" id="addReview">
+        <legend><strong>Add Review</strong></legend>
+          <fieldset class="fields">
+
+            <label> user_id </label> <select name="user_id">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                </select>
+
+            <label> stars </label> <select name="stars">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                </select>
+
+            <label> address </label> <input type="text" name="address">
+            <label> pictures </label> <input type="text" name="pictures">
+            <label> description </label> <input type="text" name="description">
+
+
+      </fieldset>
+          <input class="btn" type="submit" id="addReview" value="Add Review">
+          <input class="btn" type="button" value="cancel" onClick="browseUser()">
+	</form> 
+</div><!-- insert -->
+
+</body>
+</html>
+
+
+<html>
+<head>
+<title>Properties</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newUser() { showform('insert'); }
+    function updateUser(pid) { showform('update'); }
+    function deleteUser(pid) { showform ('delete'); }
+    function browseUser() { showform ('browse'); }
+</script>
+</head>
+
+
+
+

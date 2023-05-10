@@ -1,0 +1,57 @@
+<html>
+
+  <h1>Tenants</h1>
+  <h3>Add New Tenant:</h3>
+
+  <!-- This area will display errors if the user doesn't add proper input-->
+  <h4>{{insert_error}}</h4>
+
+  <!-- Form to insert new Information Request -->
+  <form
+    id="addtenant"
+    action="/tenant"
+    method="post"
+    onkeydown="return event.key != 'Enter';"
+  >
+
+    User ID:
+    <select name="user_id">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each user_id}}
+          <option value="{{user_id}}">{{user_id}}</option>
+        {{/each}}
+    </select>
+    <br />
+    <br />
+
+    Role:
+    <input
+      type="text"
+      name="role"
+      placeholder="Enter Role"
+    />
+    <br />
+    <br />
+
+
+  {{!-- Displays Current Information Tenant Entity Table  --}}
+  <h3>Current Tenants:</h3>
+  <table>
+    <thead>
+        <th>user_id</th>
+        <th>role</th>
+    </thead>
+    
+    {{!-- Displays a row for each Tenant in the db.  --}}
+    <tbody>
+      {{#each tenant}}
+        <tr>
+          <td>{{user_id}}</td>
+          <td>{{role}}</td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each Tenant in the db.  --}}
+
+    </tbody>
+  </table>
+</html>

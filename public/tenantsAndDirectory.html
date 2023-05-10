@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>Tenants and Tenant Directory</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+                document.getElementById('browse2').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+                document.getElementById('insert2').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+            else if (dowhat == 'insert2'){
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('browse2').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+                document.getElementById('insert2').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+            }
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+                document.getElementById('browse2').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+                document.getElementById('insert2').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newUser() { showform('insert'); }
+    function newUser2() { showform('insert2'); }
+    function updateUser(pid) { showform('update'); }
+    function deleteUser(pid) { showform ('delete'); }
+    function browseUser() { showform ('browse'); }
+</script>
+</head>
+
+<body onload="browseUser()">
+
+  <header>
+
+    <h1 class="site-title"><a href="index.html">Nest Quest</a></h1>
+    [ <a href="index.html">Users</a> | <a href="seekers.html">Seekers</a> | <a href="tenantsAndDirectory.html">Tenants and Directory</a> |  <a href="informationRequests.html">Information Requests</a> | <a href="properties.html">Properties</a> |  <a href="reviews.html">Reviews</a>]
+
+
+  </header>
+
+<h2>Tenants and Tenant Directory</h2>
+
+<h3>Tenants</h3>
+<div id="browse">
+<p></p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newUser()">New</a></th>
+    <th>user_id</th>
+    <th>role</th>
+  </tr>
+  <tr>
+    <th></th>
+    <td align="right" >1</td>
+    <td >Owner</td>
+  </tr>
+  <tr>
+    <th></th>
+    <td align="right" >2</td>
+    <td >Renter</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+
+
+<h3>Tenant Directory</h3>
+<div id="browse2">
+    <p></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#" onClick="newUser2()">New</a></th>
+        <th>user_id</th>
+        <th>address</th>
+      </tr>
+      <tr>
+        <th></th>
+        <td align="right" >1</td>
+        <td >12345 Berry st</td>
+      </tr>
+      <tr>
+        <th></th>
+        <td align="right" >2</td>
+        <td >23465 west ave</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+</div> <!-- browse -->
+
+<div id="insert">
+    <form method="POST" id="addTenant">
+        <legend><strong>Add Tenant</strong></legend>
+          <fieldset class="fields">
+
+            <label> user_id </label> <select name="user_id">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                </select>
+
+            <label> role </label> <input type="text" name="role">
+
+      </fieldset>
+          <input class="btn" type="submit" id="addTenant" value="Add Tenant">
+          <input class="btn" type="button" value="cancel" onClick="browseUser()">
+	</form> 
+</div><!-- insert -->
+
+
+<div id="insert2">
+    <form method="POST" id="addTenantDirectory">
+        <legend><strong>Add Tenant Directory</strong></legend>
+          <fieldset class="fields">
+
+            <label> user_id </label> <select name="user_id">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                </select>
+
+            <label> address </label> <input type="text" name="address">
+
+      </fieldset>
+          <input class="btn" type="submit" id="addTenantDirectory" value="Add Tenant Directory">
+          <input class="btn" type="button" value="cancel" onClick="browseUser()">
+	</form> 
+</div><!-- insert -->
+
+</body>
+</html>
