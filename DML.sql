@@ -16,10 +16,8 @@ SELECT * FROM Users WHERE fname = :fname_input
 
 --Update an user entry
 UPDATE Users SET 
-        fname = fname_input,
+        fname = :fname_input,
         lname = :lname_input,
-        first_name = :first_name_input,
-        last_name = :last_name_input,
         email = :email_input, 
         phone = :phone_input, 
         smoking = :smoking_input, 
