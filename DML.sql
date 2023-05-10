@@ -5,17 +5,19 @@
 --USERS---------------------------------------------------------------------------------------------------------------------------
 
 --Add a new user(note that any of these the user doesn't provide should be set to NULL)
-INSERT INTO Users(first_name, last_name, email, phone, smoking, pets, gender, age)
-    VALUES (:first_name_input, :last_name_input, :email_input, :phone_input, :smoking_input, :pets_input, :gender_input, :age_input);
+INSERT INTO Users(fname, lname, email, phone, smoking, pets, gender, age)
+    VALUES (:fname_input, :lname_input, :email_input, :phone_input, :smoking_input, :pets_input, :gender_input, :age_input);
 
 --show
 
 
 --Select a specific user
-SELECT * FROM Users WHERE first_name = :first_name_input
+SELECT * FROM Users WHERE fname = :fname_input
 
 --Update an user entry
 UPDATE Users SET 
+        fname = fname_input,
+        lname = :lname_input,
         first_name = :first_name_input,
         last_name = :last_name_input,
         email = :email_input, 
