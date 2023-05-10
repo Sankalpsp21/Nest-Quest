@@ -1,0 +1,57 @@
+<html>
+
+  <h1>Seeker</h1>
+  <h3>Add New Seeker :</h3>
+
+  <!-- This area will display errors if the user doesn't add proper input-->
+  <h4>{{insert_error}}</h4>
+
+  <!-- Form to insert new Seeker -->
+  <form
+    id="addseeker"
+    action="/seeker"
+    method="post"
+    onkeydown="return event.key != 'Enter';"
+  >
+    Price Upper:
+    <input
+      type="number"
+      name="price_upper"
+      placeholder="Enter Upper Price"
+    /><br />
+    <br />
+    <br />
+
+    Price Lower:
+    <input
+      type="number"
+      name="price_lower"
+      placeholder="Enter Lower Price"
+    /><br />
+    <br />
+    <br />
+
+
+  {{!-- Displays Current Seeker Entity Table  --}}
+  <h3>Current Seekers:</h3>
+  <table>
+    <thead>
+        <th>user_id</th>
+        <th>price_upper</th>
+        <th>price_lower</th>
+    </thead>
+    
+    {{!-- Displays a row for each seeker in the db.  --}}
+    <tbody>
+      {{#each seeker}}
+        <tr>
+          <td>{{user_id}}</td>
+          <td>{{price_upper}}</td>
+          <td>{{price_lower}}</td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each user in the db.  --}}
+
+    </tbody>
+  </table>
+</html>
