@@ -16,7 +16,7 @@ SELECT * FROM Users WHERE first_name = :first_name_input
 
 --Update an user entry
 UPDATE Users SET 
-        first_name = first_name_input,
+        first_name = :first_name_input,
         last_name = :last_name_input,
         email = :email_input, 
         phone = :phone_input, 
