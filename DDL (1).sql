@@ -98,13 +98,13 @@ CREATE TABLE TenantDirectory(
 );
 
 
-INSERT INTO Users(email, phone, smoking, pets, gender, age) VALUES 
-	('rob@gmail.com', 1234567890, 'yes', 'no', 'male', 22),
-	('amy@outlook.com', 987654321, 'no', 'no', 'female', 20),
-	('jim@oregonstate.edu', 5413214567, 'no', 'yes', 'male', 25),
-	('jordan@gmail.com', 3219876540, 'yes', 'yes', 'female', 20),
-	('bill@oregonstate.edu', 4436758766, 'no', 'no', 'male', 24),
-	('jace@yahoo.com', 4336751369, 'no', 'yes', 'male', 21);
+INSERT INTO Users(fname, lname, email, phone, smoking, pets, gender, age) VALUES 
+	('Rob', 'Michaels', 'rob@gmail.com', 1234567890, 'yes', 'no', 'male', 22),
+	('Amy', 'Stevenson', 'amy@outlook.com', 987654321, 'no', 'no', 'female', 20),
+	('Jim', 'Davis', 'jim@oregonstate.edu', 5413214567, 'no', 'yes', 'male', 25),
+	('Jordan', 'Brooks', 'jordan@gmail.com', 3219876540, 'yes', 'yes', 'female', 20),
+	('Bill', 'Bobert', 'bill@oregonstate.edu', 4436758766, 'no', 'no', 'male', 24),
+	('Jace', 'Smith', 'jace@yahoo.com', 4336751369, 'no', 'yes', 'male', 21);
 
 INSERT INTO Tenants(user_id, role) VALUES 
 	(4, 'owner'),
