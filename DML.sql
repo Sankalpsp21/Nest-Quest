@@ -29,7 +29,7 @@ UPDATE Users SET
 
 --Delete an User
 DELETE FROM Users WHERE user_id = :user_id_input;
---Need to set up the CASCADE functions to delete the User from Tenants and Seekers
+
 
 
 
@@ -48,7 +48,6 @@ UPDATE Tenants SET role = :role_input WHERE user_id = :user_id_input;
 --Remove a tenant entry
 DELETE FROM Tenants WHERE user_id = :user_id_input;
 DELETE FROM TenantDirectory WHERE user_id = :user_id_input;
---Need to implement the CASCADE function to delete from directory
 
 
 
@@ -103,7 +102,7 @@ UPDATE Properties SET
 
 --Delete the property
 DELETE FROM Properties WHERE address = :address_input;
---Need to cascade so that it deletes entries in tenant directory and reviews
+
 
 
 
