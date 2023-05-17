@@ -1,6 +1,6 @@
 <html>
 
-  <h1>Seeker</h1>
+  <h1>Seekers</h1>
   <h3>Add New Seeker :</h3>
 
   <!-- This area will display errors if the user doesn't add proper input-->
@@ -30,15 +30,17 @@
     /><br />
     <br />
     <br />
+    <input type="submit" value="Submit" />
+  </form>
 
 
   {{!-- Displays Current Seeker Entity Table  --}}
   <h3>Current Seekers:</h3>
   <table>
     <thead>
-        <th>user_id</th>
-        <th>price_upper</th>
-        <th>price_lower</th>
+        <th>User ID</th>
+        <th>Upper Price</th>
+        <th>Lower Price</th>
     </thead>
     
     {{!-- Displays a row for each seeker in the db.  --}}

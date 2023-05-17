@@ -1,6 +1,6 @@
 <html>
 
-  <h1>User</h1>
+  <h1>Users</h1>
   <h3>Add New User :</h3>
 
   <!-- This area will display errors if the user doesn't add proper input-->
@@ -73,6 +73,8 @@
       placeholder="Enter Age"
     /><br />
     <br />
+    <input type="submit" value="Submit"/>
+  </form>
 
 
 {{!---------- This section is to search for users --------------}}
@@ -105,15 +107,15 @@
   <h3>Current Users:</h3>
   <table>
     <thead>
-        <th>user id</th>
-        <th>first name</th>
-        <th>last name</th>
-        <th>email</th>
-        <th>phone</th>
-        <th>smoking</th>
-        <th>pet</th>
-        <th>gender</th>
-        <th>age</th>
+        <th>User ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Smoking</th>
+        <th>Pet</th>
+        <th>Gender</th>
+        <th>Age</th>
     </thead>
     
     {{!-- Displays a row for each user in the db.  --}}

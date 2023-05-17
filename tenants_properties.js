@@ -33,26 +33,35 @@ module.exports = (function() {
           {user_id: 2},
           {user_id: 3} 
         ],
+
+      address: [
+        {address: "1234 Main St."},
+        {address: "3245 Mountain Rd."}
+      ],
+
       tenant: [
         {
           user_id: 1,
           role: "owner",
+          address: "1234 Main St."
         },
         {
           user_id: 2,
           role: "roommate",
+          address: "1234 Main St."
         },
         {
           user_id: 3,
           role: "roommate",
+          address: "3245 Mountain Rd."
         }
       ]
     };
 
     // Render the users.handlebars file with the context
-    res.render('tenantsAndDirectory', context);
+    res.render('tenants_properties', context);
   });
 
-  //This router object is what handles the requests to "/tenantsAndDirectory"
+  //This router object is what handles the requests to "/tenants_properties"
   return router;
 })();

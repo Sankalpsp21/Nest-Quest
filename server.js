@@ -28,7 +28,7 @@ app.use(express.static('public'));
 //Setting up routes
 app.use("/users", require("./users.js"));
 app.use("/seekers", require("./seekers.js"));
-app.use("/tenantsAndDirectory", require("./tenants.js"));
+app.use("/tenants_properties", require("./tenants_properties.js"));
 app.use("/properties", require("./properties.js"));
 app.use("/informationRequests", require("./informationRequests.js"));
 app.use("/reviews", require("./reviews.js"));

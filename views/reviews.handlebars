@@ -54,15 +54,8 @@
     />
     <br />
     <br />
-
-    Pictures:
-    <input
-      type="image"
-      name="pictures"
-      placeholder="Enter Pictures"
-    />
-    <br />
-    <br />
+    <input type="submit" value="Submit" />
+  </form>
     <br />
     <br />
     
@@ -72,12 +65,11 @@
   <h3>Current Reviews:</h3>
   <table>
     <thead>
-        <th>review_id</th>
-        <th>user_id</th>
-        <th>address</th>
-        <th>stars</th>
-        <th>description</th>
-        <th>pictures</th>
+        <th>Review ID</th>
+        <th>User ID</th>
+        <th>Address</th>
+        <th>Stars</th>
+        <th>Description</th>
     </thead>
     
     {{!-- Displays a row for each review in the db.  --}}
@@ -89,7 +81,6 @@
           <td>{{address}}</td>
           <td>{{stars}}</td>
           <td>{{description}}</td>
-          <td>{{pictures}}</td>
         </tr>
       {{/each}}
     {{!-- Displays a row for each review in the db.  --}}

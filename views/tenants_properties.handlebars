@@ -1,6 +1,6 @@
 <html>
 
-  <h1>Tenants</h1>
+  <h1>Tenants and Properties</h1>
   <h3>Add New Tenant:</h3>
 
   <!-- This area will display errors if the user doesn't add proper input-->
@@ -9,7 +9,7 @@
   <!-- Form to insert new Information Request -->
   <form
     id="addtenant"
-    action="/tenant"
+    action="/tenants_properties"
     method="post"
     onkeydown="return event.key != 'Enter';"
   >
@@ -33,13 +33,26 @@
     <br />
     <br />
 
+    Address:
+    <select name="address">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each address}}
+          <option value="{{address}}">{{address}}</option>
+        {{/each}}
+    </select>
+    <br />
+    <br />
+    <input type="submit" value="Submit" />
+  </form>
+
 
   {{!-- Displays Current Information Tenant Entity Table  --}}
   <h3>Current Tenants:</h3>
   <table>
     <thead>
-        <th>user_id</th>
-        <th>role</th>
+        <th>User ID</th>
+        <th>Role</th>
+        <th>Address</th>
     </thead>
     
     {{!-- Displays a row for each Tenant in the db.  --}}
@@ -48,6 +61,7 @@
         <tr>
           <td>{{user_id}}</td>
           <td>{{role}}</td>
+          <td>{{address}}</td>
         </tr>
       {{/each}}
     {{!-- Displays a row for each Tenant in the db.  --}}
