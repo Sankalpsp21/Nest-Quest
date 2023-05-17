@@ -74,7 +74,7 @@ CREATE TABLE InformationRequests(
 DROP TABLE IF EXISTS Reviews;
 CREATE TABLE Reviews(
   review_id int AUTO_INCREMENT NOT NULL,
-  user_id int NOT NULL,
+  user_id int,
   address varchar(45) NOT NULL,
   stars int NOT NULL,
   description varchar(45),
