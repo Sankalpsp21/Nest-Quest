@@ -87,8 +87,8 @@ CREATE TABLE Reviews(
 
 
 
-DROP TABLE IF EXISTS TenantDirectory;
-CREATE TABLE TenantDirectory(
+DROP TABLE IF EXISTS Tenants_Properties;
+CREATE TABLE Tenants_Properties(
   user_id int NOT NULL,
   address varchar(45),
 
@@ -131,7 +131,7 @@ INSERT INTO InformationRequests(date_contacted, user_id, address) VALUES
 	('2022-09-28', 2, '12345 Berry St.'),
 	('2023-02-24', 3, '23819 Bald Mtn Rd.');
 
-INSERT INTO TenantDirectory(user_id, address) VALUES 
+INSERT INTO Tenants_Properties(user_id, address) VALUES 
 	(4, '12345 Berry St.'),
 	(4, '23465 West Ave.'),
 	(5, '876 Robin BLVD.'),

@@ -33,11 +33,11 @@ DELETE FROM Users WHERE user_id = :user_id_input;
 
 
 
---TENANTSandDIRECTORIES----------------------------------------------------------------------------------------------------------------------------
+--TENANTSandTENANTS_PROPERTIES----------------------------------------------------------------------------------------------------------------------------
 
 --Create a tenant entry and associate it with an address
 INSERT INTO Tenants(user_id, role) VALUES (:user_id_input, :role_input);
-INSERT INTO TenantDirectory(user_id, address) VALUES (:user_id_input, :address_id_input);
+INSERT INTO Tenants_Properties(user_id, address) VALUES (:user_id_input, :address_id_input);
 
 --Read the table
 SELECT * FROM Tenants;
@@ -47,7 +47,7 @@ UPDATE Tenants SET role = :role_input WHERE user_id = :user_id_input;
 
 --Remove a tenant entry
 DELETE FROM Tenants WHERE user_id = :user_id_input;
-DELETE FROM TenantDirectory WHERE user_id = :user_id_input;
+DELETE FROM Tenants_Properties WHERE user_id = :user_id_input;
 
 
 
