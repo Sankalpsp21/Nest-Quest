@@ -27,7 +27,6 @@ CREATE TABLE Properties(
   rent varchar(45) NOT NULL,
   utilities varchar(45) NOT NULL,
   description varchar(45) NOT NULL,
-  pictures BLOB,
   
   PRIMARY KEY (address),
   CONSTRAINT address UNIQUE (address)
@@ -78,7 +77,6 @@ CREATE TABLE Reviews(
   address varchar(45) NOT NULL,
   stars int NOT NULL,
   description varchar(45),
-  pictures BLOB,
 
   PRIMARY KEY (review_id),
   CONSTRAINT review_id UNIQUE (review_id),
