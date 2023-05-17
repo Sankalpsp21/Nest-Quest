@@ -6,7 +6,7 @@
   <!-- This area will display errors if the user doesn't add proper input-->
   <h4>{{insert_error}}</h4>
 
-  <!-- Form to insert new User -->
+  <!-- Form to insert new User. The action defines where the data gets sent -->
   <form
     id="adduser"
     action="/user"
@@ -105,9 +105,9 @@
   <h3>Current Users:</h3>
   <table>
     <thead>
-        <th>user_id</th>
-        <th>fname</th>
-        <th>lname</th>
+        <th>user id</th>
+        <th>first name</th>
+        <th>last name</th>
         <th>email</th>
         <th>phone</th>
         <th>smoking</th>
@@ -131,7 +131,7 @@
           <td>{{age}}</td>
 
           {{!-- Delete and Update Buttons. 
-                Delete uses the functions defined in delete.js
+                Delete uses the functions defined in delete.js passing it the
                 Update takes the user to  --}}
                 
           <td><button onclick="location.href='/user/{{user_id}}'">Update</button></td>

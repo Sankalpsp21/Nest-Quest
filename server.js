@@ -12,7 +12,9 @@ const bodyParser = require('body-parser');
 const app = express();
 var port = process.env.PORT || 3000;
 
-app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'handlebars');
 app.engine('handlebars', exphbs.engine({
   defaultLayout: "defaultPage",

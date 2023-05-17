@@ -21,6 +21,25 @@ module.exports = (function() {
     // router.get('/:id', function(req, res, next){
 
 
+    //This route gets all users from the users table
+    // router.get('/', (req, res) => {
+    //   let query1 = "SELECT * FROM users";
+    //   db.pool.query(query1, (err, rows, fields) => {
+    //     if(err) {
+    //       console.log("Failed to query for users: " + err);
+    //       res.sendStatus(500);
+    //       return;
+    //     }
+
+    //     console.log("Fetched users successfully");
+    //     context = {
+    //       user: rows
+    //     };
+    //     res.render('users', context);
+    //   });
+    // });
+
+
   
     router.get('/', (req, res) => {
       // Get the username from your data source or wherever it is available
