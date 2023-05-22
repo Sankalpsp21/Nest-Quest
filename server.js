@@ -3,7 +3,7 @@
  * Email: patilsa@oregonstate.edu
  */
 
-var fs = require('fs');
+var db = require('./database/db-connector');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
