@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 
 //Setting up the templating engine
 const app = express();
-var port = process.env.PORT || 3000;
+var port = 3467;
 
 
 app.use(express.json())
