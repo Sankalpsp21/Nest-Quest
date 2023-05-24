@@ -132,7 +132,7 @@
     {{!-- Displays a row for each user in the db.  --}}
     <tbody>
       {{#each user}}
-        <tr>
+        <tr id = {{user_id}}>
           <td>{{user_id}}</td>
           <td>{{fname}}</td>
           <td>{{lname}}</td>
@@ -148,10 +148,39 @@
                 Update takes the user to  --}}
                 
           <td><form action = "/users/delete/{{user_id}}" method = "post">
-          <button id = {{user_id}}>Delete</button></form></td>
-          
-          <td><button onclick="console.log({{user_id}})">Update</button></td>
+          <button>Delete</button></form></td>
+          <td><button onclick = 'update({{user_id}})'>Update</button></td>
+
+
         </tr>
+        <script>
+          function update(user_id){
+            var text;
+            
+            let row = document.getElementById(user_id);
+            var form = document.getElementById("adduser");
+            var updateform = form.cloneNode(true);
+            var html = document.getElementsByTagName("html");
+            var compensation = 0;
+            for(let i = 0; i < 8; i++){
+              var text = row.childNodes[2*i+3].textContent;
+              updateform.childNodes[5*i+1+compensation].value = text;
+              if(i == 4 || i == 5){
+                compensation +=1;
+              }
+            }
+            console.log(row.childNodes);
+            console.log(updateform.childNodes);
+            updateform.action = '/users/update/' + user_id;
+            
+            
+          
+            html[0].appendChild(updateform);
+            
+            
+            
+          }
+        </script>
       {{/each}}
     {{!-- Displays a row for each user in the db.  --}}
 

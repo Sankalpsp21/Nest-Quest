@@ -89,7 +89,7 @@ module.exports = (function() {
 
     router.post('/delete/:user_id', (req, res) => {
 
-      console.log("POST request received at /users/delete, for deleting user_id:"+ req.params.user_id);
+      console.log("POST request received at /users/delete, for user_id:"+ req.params.user_id);
       var query = "DELETE FROM Users WHERE user_id = ?;"
       db.pool.query(query, req.params.user_id, (err, results, fields) => {
         res.redirect('/users');
@@ -97,6 +97,29 @@ module.exports = (function() {
         
       
     });
+
+    router.post('/update/:user_id', (req, res) => {
+      var query = "UPDATE Users SET fname = ?, lname = ?, email = ?, phone = ?, smoking = ?, pets = ?, gender = ?, age = ? WHERE user_id = ?; ";
+      
+
+      var dataToInsert = [
+        req.body.fname,
+        req.body.lname,
+        req.body.email,
+        req.body.phone,
+        req.body.smoking,
+        req.body.pet,
+        req.body.gender,
+        req.body.age,
+        req.params.user_id
+      ]
+
+      db.pool.query(query, dataToInsert, (err, results, fields) => {
+        res.redirect('/users');
+      });
+    });
+
+    
  
     
 
