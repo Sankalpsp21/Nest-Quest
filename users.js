@@ -43,7 +43,10 @@ module.exports = (function() {
         done();
       });
     }
-  
+   
+    
+    
+
     router.get('/', (req, res) => {
 
       context = {};
@@ -83,7 +86,20 @@ module.exports = (function() {
         res.redirect('/users');
       });
     });
-  
+
+    router.post('/delete/:user_id', (req, res) => {
+
+      console.log("POST request received at /users/delete, for deleting user_id:"+ req.params.user_id);
+      var query = "DELETE FROM Users WHERE user_id = ?;"
+      db.pool.query(query, req.params.user_id, (err, results, fields) => {
+        res.redirect('/users');
+      });
+        
+      
+    });
+ 
+    
+
     //This router object is what handles the requests to "/users"
     return router;
   })();

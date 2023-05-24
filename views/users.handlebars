@@ -147,8 +147,10 @@
                 Delete uses the functions defined in delete.js passing it the
                 Update takes the user to  --}}
                 
-          <td><button onclick="location.href='/user/{{user_id}}'">Update</button></td>
-          <td><button onclick="deleteuser({{user_id}})">Delete</button></td>
+          <td><form action = "/users/delete/{{user_id}}" method = "post">
+          <button id = {{user_id}}>Delete</button></form></td>
+          
+          <td><button onclick="console.log({{user_id}})">Update</button></td>
         </tr>
       {{/each}}
     {{!-- Displays a row for each user in the db.  --}}
