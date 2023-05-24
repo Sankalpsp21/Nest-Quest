@@ -32,8 +32,8 @@ module.exports = (function() {
             lname: row.lname,
             email: row.email,
             phone: row.phone,
-            smoking: row.smoking === 'yes' ? 'Yes' : 'No',
-            pet: row.pets === 'yes' ? 'Yes' : 'No',
+            smoking: row.smoking === 'Yes' ? 'Yes' : 'No',
+            pet: row.pets === 'Yes' ? 'Yes' : 'No',
             gender: row.gender.charAt(0).toUpperCase() + row.gender.slice(1),
             age: parseInt(row.age),
           };
