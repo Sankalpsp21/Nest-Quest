@@ -1,0 +1,90 @@
+<html>
+
+  <h1>Reviews</h1>
+  <h3>Add New Review :</h3>
+
+  <!-- This area will display errors if the user doesn't add proper input-->
+  <h4>{{insert_error}}</h4>
+
+  <!-- Form to insert new User -->
+  <form
+    id="addreview"
+    action="/review"
+    method="post"
+    onkeydown="return event.key != 'Enter';"
+  >
+
+    User ID:
+    <select name="user_id">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each user_id}}
+          <option value="{{user_id}}">{{user_id}}</option>
+        {{/each}}
+    </select>
+    <br />
+    <br />
+
+    Address:
+    <input
+      type="text"
+      name="address"
+      placeholder="Enter Address"
+    />
+    <br />
+    <br />
+
+    Stars:
+    <select name="stars">
+      <option disabled selected value> -- select an option -- </option>
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+        <option value="0">0</option>
+    </select>
+    <br />
+    <br />
+
+    Description:
+    <input
+      type="text"
+      name="description"
+      placeholder="Enter Description"
+    />
+    <br />
+    <br />
+    <input type="submit" value="Submit" />
+  </form>
+    <br />
+    <br />
+    
+
+
+  {{!-- Displays Current Review Entity Table  --}}
+  <h3>Current Reviews:</h3>
+  <table>
+    <thead>
+        <th>Review ID</th>
+        <th>User ID</th>
+        <th>Address</th>
+        <th>Stars</th>
+        <th>Description</th>
+    </thead>
+    
+    {{!-- Displays a row for each review in the db.  --}}
+    <tbody>
+      {{#each review}}
+        <tr>
+          <td>{{review_id}}</td>
+          <td>{{user_id}}</td>
+          <td>{{address}}</td>
+          <td>{{stars}}</td>
+          <td>{{description}}</td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each review in the db.  --}}
+
+    </tbody>
+  </table>
+</html>

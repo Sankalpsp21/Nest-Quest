@@ -1,0 +1,193 @@
+<html>
+
+  <h1>Users</h1>
+  <h3>Add New User :</h3>
+
+  <!-- This area will display errors if the user doesn't add proper input-->
+  <h4>{{insert_error}}</h4>
+
+  <!-- Form to insert new User. The action defines where the data gets sent -->
+  <form
+    id="adduser"
+    action="/users"
+    method="post"
+    onkeydown="return event.key != 'Enter';"
+  >
+    First Name:
+    <input
+      type="text"
+      name="fname"
+      placeholder="Enter First Name"
+      required
+    /><br />
+    <br />
+
+    Last Name:
+    <input
+      type="text"
+      name="lname"
+      placeholder="Enter Last Name"
+      required
+    /><br />
+    <br />
+
+    Email:
+    <input
+      type="email"
+      name="email"
+      placeholder="Enter Email"
+      required
+    /><br />
+    <br />
+
+    Phone:
+    <input
+      type="text"
+      name="phone"
+      placeholder="Enter Phone"
+      required
+    /><br />
+    <br />
+
+    Smoking:
+    <select name="smoking">
+      <option disabled selected value> -- select an option -- </option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+    <br />
+    <br />
+
+    Pet:
+    <select name="pet">
+      <option disabled selected value> -- select an option -- </option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+    <br />
+    <br />
+
+    Gender:
+    <input
+      type="text"
+      name="gender"
+      placeholder="Enter Gender"
+      required
+    /><br />
+    <br />
+
+    Age:
+    <input
+      type="text"
+      name="age"
+      placeholder="Enter Age"
+      required
+    /><br />
+    <br />
+    <input type="submit" value="Submit"/>
+  </form>
+
+
+{{!---------- This section is to search for users --------------}}
+  <form
+    id="search_user"
+    action=""
+    method=""
+    onkeydown="return event.key != 'Enter';"
+  >
+    <label> Search for User by First Name:</label>
+
+  <!-- This area will display errors if the user doesn't add proper input-->
+    <h4>{{search_error}}</h4>
+
+    <!-- Search Input Form -->
+    <input
+      id="search_string"
+      type="text"
+      name="search_string"
+      value=""
+      placeholder="Enter User First Name"
+    />
+    <input type="button" value="Search" onclick="searchUser()" />
+    <button type="button"><a class="blacklink" href="/user">Cancel Search</a></button>
+  </form>
+  {{!---------- This section is to search for users --------------}}
+
+
+  {{!-- Displays Current User Entity Table  --}}
+  <h3>Current Users:</h3>
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Smoking</th>
+        <th>Pet</th>
+        <th>Gender</th>
+        <th>Age</th>
+    </thead>
+    
+    {{!-- Displays a row for each user in the db.  --}}
+    <tbody>
+      {{#each user}}
+        <tr id = {{user_id}}>
+          <td>{{user_id}}</td>
+          <td>{{fname}}</td>
+          <td>{{lname}}</td>
+          <td>{{email}}</td>
+          <td>{{phone}}</td>
+          <td>{{smoking}}</td>
+          <td>{{pet}}</td>
+          <td>{{gender}}</td>
+          <td>{{age}}</td>
+
+          {{!-- Delete and Update Buttons. 
+                Delete uses the functions defined in delete.js passing it the
+                Update takes the user to  --}}
+                
+          <td><form action = "/users/delete/{{user_id}}" method = "post">
+          <button>Delete</button></form></td>
+          <td><button onclick = 'update({{user_id}})'>Update</button></td>
+
+
+        </tr>
+        <script>
+          function update(user_id){
+            var text;
+            
+            let row = document.getElementById(user_id);
+            var form = document.getElementById("adduser");
+            var updateform = form.cloneNode(true);
+            var html = document.getElementsByTagName("html");
+            var compensation = 0;
+
+            for(let i = 0; i < 8; i++){
+              var text = row.childNodes[2*i+3].textContent;
+              updateform.childNodes[5*i+1+compensation].value = text;
+              if(i == 4 || i == 5){
+                compensation +=1;
+              }
+            }
+            
+            console.log(row.childNodes);
+            console.log(updateform.childNodes);
+            updateform.action = '/users/update/' + user_id;
+            
+            
+            var header = document.createElement("h3");
+            header.textContent = "Update UserID: " + user_id;
+            html[0].appendChild(header);
+            html[0].appendChild(updateform);
+            
+            
+            
+          }
+        </script>
+      {{/each}}
+    {{!-- Displays a row for each user in the db.  --}}
+
+    </tbody>
+  </table>
+</html>

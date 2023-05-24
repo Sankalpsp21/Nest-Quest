@@ -1,0 +1,118 @@
+<html>
+
+  <h1>Properties</h1>
+  <h3>Add New Property :</h3>
+
+  <!-- This area will display errors if the user doesn't add proper input-->
+  <h4>{{insert_error}}</h4>
+
+  <!-- Form to insert new Property -->
+  <form
+    id="addproperty"
+    action="/property"
+    method="post"
+    onkeydown="return event.key != 'Enter';"
+  >
+    Address:
+    <input
+      type="text"
+      name="address"
+      placeholder="Enter Property Address"
+      required
+    /><br />
+    <br />
+    
+    Rooms:
+    <input
+      type="number"
+      name="rooms"
+      placeholder="Enter # of Rooms"
+      required
+    /><br />
+    <br />
+
+    Bathrooms:
+    <input
+      type="number"
+      name="bathrooms"
+      placeholder="Enter # of Bathrooms"
+      required
+    /><br />
+    <br />
+
+    Sqft:
+    <input
+      type="number"
+      name="sqft"
+      placeholder="Enter Size in Square Feet"
+      required
+    /><br />
+    <br />
+
+    Rent:
+    <input
+      type="number"
+      name="rent"
+      placeholder="Enter Rent"
+      required
+    /><br />
+    <br />
+
+    Utilities:
+    <input
+      type="text"
+      name="utilities"
+      placeholder="Enter Utilities"
+      required
+    /><br />
+    <br />
+
+    Description:
+    <input
+      type="text"
+      name="description"
+      placeholder="Enter Description"
+    /><br />
+    <br />
+    <input type="submit" value="Submit" />
+  </form>
+
+
+  {{!-- Displays Current Property Entity Table  --}}
+  <h3>Current Properties:</h3>
+  <table>
+    <thead>
+        <th>Address</th>
+        <th>Rooms</th>
+        <th>Bathrooms</th>
+        <th>Sqft</th>
+        <th>Rent</th>
+        <th>Utilities</th>
+        <th>Description</th>
+    </thead>
+    
+    {{!-- Displays a row for each property in the db.  --}}
+    <tbody>
+      {{#each property}}
+        <tr>
+          <td>{{address}}</td>
+          <td>{{rooms}}</td>
+          <td>{{bathrooms}}</td>
+          <td>{{sqft}}</td>
+          <td>{{rent}}</td>
+          <td>{{utilities}}</td>
+          <td>{{description}}</td>
+
+          {{!-- Delete and Update Buttons. 
+                Delete uses the functions defined in delete.js
+                Update takes the user to  --}}
+                
+          <td><button onclick="location.href='/property/{{address}}'">Update</button></td>
+          <td><button onclick="deleteproperty({{address}})">Delete</button></td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each property in the db.  --}}
+
+    </tbody>
+  </table>
+</html>
