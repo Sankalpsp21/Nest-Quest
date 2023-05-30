@@ -9,10 +9,22 @@
   <!-- Form to insert new Seeker -->
   <form
     id="addseeker"
-    action="/seeker"
+    action="/seekers"
     method="post"
     onkeydown="return event.key != 'Enter';"
   >
+
+    User ID:
+    <select name="user_id">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each user}}
+          <option value="{{user_id}}">{{user_id}}</option>
+        {{/each}}
+        required
+    </select>
+    <br />
+    <br />
+
     Price Upper:
     <input
       type="number"

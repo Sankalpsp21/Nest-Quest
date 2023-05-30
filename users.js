@@ -44,9 +44,6 @@ module.exports = (function() {
       });
     }
    
-    
-    
-
     router.get('/', (req, res) => {
 
       context = {};
