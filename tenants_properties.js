@@ -121,9 +121,6 @@ module.exports = (function() {
   router.get('/', (req, res) => {
 
     context = {};
-
-    context.search_error = "error message for search";
-    context.insert_error = "error message for insert";
     
     getUserIDs(res, context, done);
     getTenantIDs(res, context, done);
@@ -144,26 +141,53 @@ module.exports = (function() {
     }
   });
 
-
   router.post('/', (req, res) => {
     console.log("POST request received at /tenants_properties");
 
     var query = 
-    "INSERT INTO Tenants_Properties(user_id, price_upper, price_lower) VALUES (?, ?, ?)";
+    "INSERT INTO Tenants(user_id, role) VALUES (?, ?)";
 
     var dataToInsert = [
       req.body.user_id,
-      req.body.price_upper,
-      req.body.price_lower,
+      req.body.role
     ]
 
     db.pool.query(query, dataToInsert, (err, results, fields) => {
-      res.redirect('/seekers');
+      res.redirect('/tenants_properties');
     });
   });
 
   router.post('/add-tenant-property', (req, res) => {
+    console.log("POST request received at /tenants_properties/add-tenant-property");
 
+    var query = 
+    "INSERT INTO Tenants_Properties(user_id, address) VALUES (?, ?)";
+
+    var dataToInsert = [
+      req.body.user_id,
+      req.body.address
+    ]
+
+    db.pool.query(query, dataToInsert, (err, results, fields) => {
+      res.redirect('/tenants_properties');
+    });
+
+  });
+
+  router.post('/delete/:user_id', (req, res) => {
+    console.log("POST request received at /tenants_properties/delete, for user_id:"+ req.params.user_id);
+    var query = "DELETE FROM Tenants WHERE user_id = ?";
+    db.pool.query(query, req.params.user_id, (err, results, fields) => {
+      res.redirect('/tenants_properties');
+    });
+  });
+
+  router.post('/delete-tenant-property/:user_id', (req, res) => {
+    console.log("POST request received at /tenants_properties/delete-tenant-property, for user_id:"+ req.params.user_id);
+    var query = "DELETE FROM Tenants_Properties WHERE user_id = ?";
+    db.pool.query(query, req.params.user_id, (err, results, fields) => {
+      res.redirect('/tenants_properties');
+    });
   });
 
   //This router object is what handles the requests to "/seekers"

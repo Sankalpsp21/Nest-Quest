@@ -3,10 +3,7 @@
   <h1>Tenants and Properties</h1>
   <h3>Add New Tenant:</h3>
 
-  <!-- This area will display errors if the user doesn't add proper input-->
-  <h4>{{insert_error}}</h4>
-
-  <!-- Form to insert new Information Request -->
+  <!-- Form to insert new Tenant -->
   <form
     id="addtenant"
     action="/tenants_properties"
@@ -41,7 +38,7 @@
   {{!-- ---------------------------------------------------------------------------------------------- --}}
   <h3>Add New Tenant-Property Relationship:</h3>
 
-  <!-- Form to insert new Information Request -->
+  <!-- Form to insert new Tenant Property -->
   <form
     id="add-tenant-property"
     action="/tenants_properties/add-tenant-property"
@@ -71,10 +68,7 @@
     <input type="submit" value="Submit" />
   </form>
 
-
-
-
-
+{{!-- ---------------------------------------------------------------------------------------------- --}}
 
   {{!-- Displays Current Information Tenant Entity Table  --}}
   <h3>Current Tenants:</h3>
@@ -90,13 +84,22 @@
         <tr>
           <td>{{user_id}}</td>
           <td>{{role}}</td>
+          <td>
+            <form 
+              action = "/tenants_properties/delete/{{user_id}}" 
+              method = "post">
+              <button>Delete</button>
+            </form>
+          </td>
         </tr>
+
       {{/each}}
     {{!-- Displays a row for each Tenant in the db.  --}}
 
     </tbody>
   </table>
 
+{{!-- ---------------------------------------------------------------------------------------------- --}}
 
   {{!-- Displays Current Information TenantProperty Entity Table  --}}
   <h3>Current Tenant-Properties:</h3>
@@ -112,6 +115,8 @@
         <tr>
           <td>{{user_id}}</td>
           <td>{{address}}</td>
+          <td><form action = "/tenants_properties/delete-tenant-property/{{user_id}}" method = "post">
+            <button>Delete</button></form></td>
         </tr>
       {{/each}}
     {{!-- Displays a row for each Tenant in the db.  --}}
