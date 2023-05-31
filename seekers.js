@@ -19,7 +19,6 @@ module.exports = (function() {
       }
 
       //Format the data
-      console.log("Fetched seekers successfully");
       context.seeker = rows.map((row) => {
         return {
           user_id: row.user_id,
@@ -28,13 +27,12 @@ module.exports = (function() {
         };
       });
 
-      console.log(context);
+      // console.log(context);
       done();
     });
   }
 
   function getUserIDs(res, context, done){
-    // Write an sql query to select all userIDs from users where user_id not in (select user_id from seekers)
     let query1 = "SELECT user_id FROM Users WHERE user_id NOT IN (SELECT user_id FROM Seekers)";
     db.pool.query(query1, (err, rows, fields) => {
       if(err) {
@@ -44,14 +42,13 @@ module.exports = (function() {
       }
 
       // return the context with a list of user_ids calles users
-      console.log("Fetched seekers successfully");
       context.user = rows.map((row) => {
         return {
           user_id: row.user_id,
         };
       });
 
-      console.log(context);
+      // console.log(context);
       done();
     });
   }

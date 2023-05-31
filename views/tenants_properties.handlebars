@@ -17,7 +17,7 @@
     User ID:
     <select name="user_id">
       <option disabled selected value> -- select an option -- </option>
-        {{#each user_id}}
+        {{#each user}}
           <option value="{{user_id}}">{{user_id}}</option>
         {{/each}}
     </select>
@@ -34,6 +34,31 @@
     <br />
     <br />
 
+    <input type="submit" value="Submit" />
+  </form>
+
+  
+  {{!-- ---------------------------------------------------------------------------------------------- --}}
+  <h3>Add New Tenant-Property Relationship:</h3>
+
+  <!-- Form to insert new Information Request -->
+  <form
+    id="add-tenant-property"
+    action="/tenants_properties/add-tenant-property"
+    method="post"
+    onkeydown="return event.key != 'Enter';"
+  >
+
+    User ID:
+    <select name="user_id">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each tenantID}}
+          <option value="{{user_id}}">{{user_id}}</option>
+        {{/each}}
+    </select>
+    <br />
+    <br />
+
     Address:
     <select name="address">
       <option disabled selected value> -- select an option -- </option>
@@ -47,13 +72,16 @@
   </form>
 
 
+
+
+
+
   {{!-- Displays Current Information Tenant Entity Table  --}}
   <h3>Current Tenants:</h3>
   <table>
     <thead>
         <th>User ID</th>
         <th>Role</th>
-        <th>Address</th>
     </thead>
     
     {{!-- Displays a row for each Tenant in the db.  --}}
@@ -62,6 +90,27 @@
         <tr>
           <td>{{user_id}}</td>
           <td>{{role}}</td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each Tenant in the db.  --}}
+
+    </tbody>
+  </table>
+
+
+  {{!-- Displays Current Information TenantProperty Entity Table  --}}
+  <h3>Current Tenant-Properties:</h3>
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>Address</th>
+    </thead>
+    
+    {{!-- Displays a row for each Tenant in the db.  --}}
+    <tbody>
+      {{#each tenantProperty}}
+        <tr>
+          <td>{{user_id}}</td>
           <td>{{address}}</td>
         </tr>
       {{/each}}

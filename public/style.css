@@ -2,3 +2,28 @@
 table, th, td {
     border: 1px solid black;
 }
+
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+
+.mainbody{
+    margin: 5px;
+}
+
+
+.header-title {
+    background: rgb(199, 135, 107);
+    padding: 0.938rem;
+    color: white;
+    font-size: 1.563rem;
+    font-weight: bold;
+    cursor: default;
+}
+
+.topnav {
+    border-top: 0.188rem solid rgb(3, 0, 0);
+  }
