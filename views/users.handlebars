@@ -153,22 +153,29 @@
 
 
         </tr>
-        <script>
+        
+      {{/each}}
+    {{!-- Displays a row for each user in the db.  --}}
+      
+    </tbody>
+  </table>
+   <div class = "modal hidden">
+    <h3>Update User: </h3>
+    <button class = "close-modal" onclick="closeModal()">Close</button>
+  </div>
+  <script>
           function update(user_id){
             var text;
-            
+
             let row = document.getElementById(user_id);
+            var values = row.getElementsByTagName("td");
             var form = document.getElementById("adduser");
             var updateform = form.cloneNode(true);
             var html = document.getElementsByTagName("html");
-            var compensation = 0;
-
-            for(let i = 0; i < 8; i++){
-              var text = row.childNodes[2*i+3].textContent;
-              updateform.childNodes[5*i+1+compensation].value = text;
-              if(i == 4 || i == 5){
-                compensation +=1;
-              }
+            var updateforminputs = updateform.querySelectorAll("input, select");
+            console.log(updateforminputs);
+            for(i = 0; i < updateforminputs.length-1; i++){
+              updateforminputs[i].value = values[i+1].textContent;
             }
             
             console.log(row.childNodes);
@@ -176,18 +183,17 @@
             updateform.action = '/users/update/' + user_id;
             
             
-            var header = document.createElement("h3");
-            header.textContent = "Update UserID: " + user_id;
-            html[0].appendChild(header);
-            html[0].appendChild(updateform);
-            
-            
-            
+            var modal = document.getElementsByClassName("modal");
+            modal[0].getElementsByTagName("h3")[0].textContent = "Update User: " + user_id;
+            modal[0].appendChild(updateform);
+            modal[0].classList.remove("hidden");
+            //console.log(modal[0]);
           }
+          function closeModal(){
+            var modal = document.getElementsByClassName("modal")[0];
+            modal.classList.add("hidden");
+            modal.removeChild(modal.children[2], modal.children[3], modal.children[4]);
+      
+    }
         </script>
-      {{/each}}
-    {{!-- Displays a row for each user in the db.  --}}
-
-    </tbody>
-  </table>
 </html>

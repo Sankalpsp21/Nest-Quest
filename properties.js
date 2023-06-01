@@ -99,6 +99,26 @@ module.exports = (function() {
     
   });
 
+  router.post('/update/:address', (req, res) => {
+   
+    console.log("POST request received at /properties/update, for address: "+ req.params.address);
+    var query = " UPDATE Properties SET rooms = ?,bathrooms = ?, sqft = ?, rent = ?, utilities = ?, description = ? WHERE address = ?";
+    var dataToInsert =[
+      req.body.rooms,
+      req.body.bathrooms,
+      req.body.sqft,
+      req.body.rent,
+      req.body.utilities,
+      req.body.description,
+      req.body.address
+    ]
+    db.pool.query(query, dataToInsert, (err, results, fields) => {
+      res.redirect('/properties');
+    });
+      
+    
+  });
+
   //This router object is what handles the requests to "/properties"
   return router;
 })();

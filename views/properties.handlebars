@@ -127,19 +127,25 @@
             
             let row = document.getElementById(address);
             var form = document.getElementById("addproperty");
+            var values = row.getElementsByTagName("td");
             var updateform = form.cloneNode(true);
             var html = document.getElementsByTagName("html");
+            var updateforminputs = updateform.getElementsByTagName("input");
+            //console.log(updateforminputs);
+            //console.log(row);
+            //console.log(updateform);
 
-            var compensation = 0;
-            for(let i = 0; i < 8; i++){
-              var text = row.childNodes[2*i+3].textContent;
-              updateform.childNodes[5*i+1+compensation].value = text;
+
+
+            for(let i = 0; i < 7; i++){
+              var text = values[i].textContent;
+              updateforminputs[i].value = text;
             }
             
-            console.log(row.childNodes);
-            console.log(updateform.childNodes);
+            //console.log(row.childNodes);
+           // console.log(updateform.childNodes);
             updateform.action = '/properties/update/' + address;
-
+            //console.log(updateform.action)
             var modal = document.getElementsByClassName("modal");
             modal[0].getElementsByTagName("h3")[0].textContent = "Update Properties: " + address;
             modal[0].appendChild(updateform);
@@ -149,10 +155,9 @@
             
           }
     function closeModal(){
-      var modal = document.getElementsByClassName("modal");
-      modal[0].classList.add("hidden");
-      console.log(modal[0].children);
-      //Need to remove the 2nd and 3rd nodes to clear the form
+      var modal = document.getElementsByClassName("modal")[0];
+      modal.classList.add("hidden");
+      modal.removeChild(modal.children[2], modal.children[3], modal.children[4]);
       
     }
   </script>

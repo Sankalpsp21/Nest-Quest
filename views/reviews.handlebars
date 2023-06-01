@@ -9,7 +9,7 @@
   <!-- Form to insert new User -->
   <form
     id="addreview"
-    action="/review"
+    action="/reviews"
     method="post"
     onkeydown="return event.key != 'Enter';"
   >
@@ -25,11 +25,12 @@
     <br />
 
     Address:
-    <input
-      type="text"
-      name="address"
-      placeholder="Enter Address"
-    />
+    <select name = "address">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each address}}
+          <option value="{{address}}">{{address}}</option>
+        {{/each}}
+    </select>
     <br />
     <br />
 
