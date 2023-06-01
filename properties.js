@@ -1,5 +1,6 @@
 module.exports = (function() {
   // Declare Variables
+  var db = require('./database/db-connector');
   var express = require("express");
   var router = express.Router();
   var search_error = "";
@@ -20,38 +21,82 @@ module.exports = (function() {
   // Route for showing a specific User entry to update
   // router.get('/:id', function(req, res, next){
 
+  function getProperties(res, context, done){
+    let query1 = "SELECT * FROM Properties";
+    db.pool.query(query1, (err, rows, fields) => {
+      if(err) {
+        console.log("Failed to query for properties: " + err);
+        res.sendStatus(500);
+        return;
+      }
 
+      //Format the data
+      console.log("Fetched properties successfully");
+      context.property = rows.map((row) => {
+        return {
+          address: row.address,
+          rooms: row.rooms,
+          bathrooms: row.bathrooms,
+          sqft: row.sqft,
+          rent: row.rent,
+          utilities: row.utilities,
+          description: row.description,
+        };
+      });
+      
+      done();
+    });
+  }
+
+  router.post('/', (req, res) => {
+    console.log("POST request received at /properties");
+
+    var query = "INSERT INTO Properties(address, rooms, bathrooms, sqft, rent, utilities, description) VALUES(?, ?, ?, ?, ?, ?, ?)";
+
+
+    var dataToInsert = [
+      req.body.address,
+      req.body.rooms,
+      req.body.bathrooms,
+      req.body.sqft,
+      req.body.rent,
+      req.body.utilities,
+      req.body.description
+    ]
+
+    db.pool.query(query, dataToInsert, (err, results, fields) => {
+      res.redirect('/properties');
+    });
+  });
 
   router.get('/', (req, res) => {
-    // Get the username from your data source or wherever it is available
 
-    //THIS IS HARD CODED FOR NOW. 
-    context = {
-      insert_error: 'Error message for insert',
-      property: [
-        {
-          address: '12345 Berry st',
-          rooms: 3,
-          bathrooms: 3,
-          sqft: 1550,
-          rent: 750,
-          utilities: 'water, sewage, garbage, washer/dryer',
-          description: 'Townhome 2.2 miles from campus'
-        },
-        {
-          address: '23465 west ave',
-          rooms: 2,
-          bathrooms: 2,
-          sqft: 1450,
-          rent: 850,
-          utilities: 'water, sewage, garbage, washer/dryer',
-          description: 'Apartment room located 5 minutes from campus'
-        }
-      ]
-    };
+    context = {};
 
-    // Render the properties.handlebars file with the context
-    res.render('properties', context);
+    context.search_error = "error message for search";
+    context.insert_error = "error message for insert";
+    getProperties(res, context, done);
+
+    //Ensures that the database query is done before rendering the page
+    function done(){
+      // console.log("Rendering page");        
+      // console.log(context);
+      // Render the users.handlebars file with the context
+      res.render('properties', context);
+
+    }
+  });
+
+
+  router.post('/delete/:address', (req, res) => {
+
+    console.log("POST request received at /properties/delete, for address: "+ req.params.address);
+    var query = "DELETE FROM Properties WHERE address = ?;"
+    db.pool.query(query, req.params.address, (err, results, fields) => {
+      res.redirect('/properties');
+    });
+      
+    
   });
 
   //This router object is what handles the requests to "/properties"

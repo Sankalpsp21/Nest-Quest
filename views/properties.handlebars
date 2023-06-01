@@ -9,7 +9,7 @@
   <!-- Form to insert new Property -->
   <form
     id="addproperty"
-    action="/property"
+    action="/properties"
     method="post"
     onkeydown="return event.key != 'Enter';"
   >
@@ -94,7 +94,7 @@
     {{!-- Displays a row for each property in the db.  --}}
     <tbody>
       {{#each property}}
-        <tr>
+        <tr id = "{{address}}">
           <td>{{address}}</td>
           <td>{{rooms}}</td>
           <td>{{bathrooms}}</td>
@@ -107,12 +107,53 @@
                 Delete uses the functions defined in delete.js
                 Update takes the user to  --}}
                 
-          <td><button onclick="location.href='/property/{{address}}'">Update</button></td>
-          <td><button onclick="deleteproperty({{address}})">Delete</button></td>
+          <td><form action = "/properties/delete/{{address}}" method = "post">
+          <button>Delete</button></form></td>
+          <td><button onclick = 'update("{{address}}")'>Update</button></td>
         </tr>
       {{/each}}
     {{!-- Displays a row for each property in the db.  --}}
 
     </tbody>
   </table>
+  <div class = "modal hidden">
+    <h3>Update Properties: </h3>
+    <button class = "close-modal" onclick="closeModal()">Close</button>
+  </div>
+
+  <script>
+    function update(address){
+            var text;
+            
+            let row = document.getElementById(address);
+            var form = document.getElementById("addproperty");
+            var updateform = form.cloneNode(true);
+            var html = document.getElementsByTagName("html");
+
+            var compensation = 0;
+            for(let i = 0; i < 8; i++){
+              var text = row.childNodes[2*i+3].textContent;
+              updateform.childNodes[5*i+1+compensation].value = text;
+            }
+            
+            console.log(row.childNodes);
+            console.log(updateform.childNodes);
+            updateform.action = '/properties/update/' + address;
+
+            var modal = document.getElementsByClassName("modal");
+            modal[0].getElementsByTagName("h3")[0].textContent = "Update Properties: " + address;
+            modal[0].appendChild(updateform);
+            modal[0].classList.remove("hidden");
+            console.log(modal[0]);
+
+            
+          }
+    function closeModal(){
+      var modal = document.getElementsByClassName("modal");
+      modal[0].classList.add("hidden");
+      console.log(modal[0].children);
+      //Need to remove the 2nd and 3rd nodes to clear the form
+      
+    }
+  </script>
 </html>
