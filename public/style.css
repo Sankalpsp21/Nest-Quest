@@ -23,7 +23,7 @@ body {
 }
 
 .header-title {
-    background: rgb(238, 135, 90);
+    background: #ee875a;
     padding: 0.938rem;
     color: white;
 
@@ -82,4 +82,19 @@ li a {
     color: white;
     padding: 0.875rem 1rem;
     text-decoration: none;
+}
+
+.submit-button{
+    background-color: #4b4b4b;
+    color: white;
+    border-width: 1px;
+    border-color: black;
+    width: 120px;
+    height: 25px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.submit-button:hover {
+    background-color: #ee875a;
 }

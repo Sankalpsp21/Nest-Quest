@@ -3,9 +3,6 @@
   <h1>Properties</h1>
   <h3>Add New Property :</h3>
 
-  <!-- This area will display errors if the user doesn't add proper input-->
-  <h4>{{insert_error}}</h4>
-
   <!-- Form to insert new Property -->
   <form
     id="addproperty"
@@ -74,7 +71,7 @@
       placeholder="Enter Description"
     /><br />
     <br />
-    <input type="submit" value="Submit" />
+    <input class="submit-button" type="submit" value="Submit" />
   </form>
 
 
@@ -116,6 +113,8 @@
 
     </tbody>
   </table>
+
+
   <div class = "modal hidden">
     <h3>Update Properties: </h3>
     <button class = "close-modal" onclick="closeModal()">Close</button>
@@ -134,8 +133,6 @@
             //console.log(updateforminputs);
             //console.log(row);
             //console.log(updateform);
-
-
 
             for(let i = 0; i < 7; i++){
               var text = values[i].textContent;

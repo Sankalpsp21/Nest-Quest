@@ -21,7 +21,7 @@ module.exports = (function() {
   // Route for showing a specific User entry to update
   // router.get('/:id', function(req, res, next){
 
-  function getUserIDs(res, context){
+  function getUserIDs(res, context, done){
     let query1 = "SELECT user_id FROM Users";
     db.pool.query(query1, (err, rows, fields) => {
       if(err) {
@@ -36,36 +36,11 @@ module.exports = (function() {
           user_id: row.user_id,
         };
       });
+      done();
 
       // console.log(context);
     });
   }
-
-  function getReviews(res, context){
-    let query1 = "SELECT * FROM Reviews";
-    db.pool.query(query1, (err, rows, fields) => {
-      if(err) {
-        console.log("Failed to query for users: " + err);
-        res.sendStatus(500);
-        return;
-      }
-
-      // return the context with a list of
-      context.review = rows.map((row) => {
-        return {
-          review_id: row.review_id,
-          user_id: row.user_id,
-          address: row.address,
-          stars: row.stars,
-          description: row.description,
-
-        };
-      });
-
-      // console.log(context);
-    });
-  }
-
 
   function getAddresses(res, context, done){
     let query = "SELECT address FROM Properties";
@@ -86,20 +61,46 @@ module.exports = (function() {
     )
   }
 
+  function getReviews(res, context, done){
+    let query1 = "SELECT * FROM Reviews";
+    db.pool.query(query1, (err, rows, fields) => {
+      if(err) {
+        console.log("Failed to query for users: " + err);
+        res.sendStatus(500);
+        return;
+      }
+
+      // return the context with a list of
+      context.review = rows.map((row) => {
+        return {
+          review_id: row.review_id,
+          user_id: row.user_id,
+          address: row.address,
+          stars: row.stars,
+          description: row.description,
+
+        };
+      });
+
+      done();
+    });
+  }
+
   router.get('/', (req, res) => {
     // Get the username from your data source or wherever it is available
     context = {};
-    context.insert_error = 'Error message for insert',
-    getUserIDs(res, context);
-    getReviews(res, context);
+    getUserIDs(res, context, done);
     getAddresses(res, context, done);
+    getReviews(res, context, done);
 
 
+    var count = 0;
     function done(){
-
-      res.render('reviews', context);
+      count++;
+      if (count == 3){
+        res.render('reviews', context);
+      }
     }
-    
   });
 
 
@@ -116,7 +117,7 @@ module.exports = (function() {
     ]
 
     db.pool.query(query, dataToInsert, (err, results, fields) => {
-      res.redirect('/reviews/');
+      res.redirect('/reviews');
     });
   });
 
