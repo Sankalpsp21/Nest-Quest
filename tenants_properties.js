@@ -4,13 +4,6 @@ module.exports = (function() {
   var express = require("express");
   var router = express.Router();
 
-  // Here, we will write functions to handle
-  // 1. Input validation
-  // 2. Database queries (Create, Select (Read), Update, Delete (CRUD)
-  // 3. Search queries
-  // 4. Rendering the page
-
-
   function getUserIDs(res, context, done){
     let query1 = "SELECT user_id FROM Users WHERE user_id NOT IN (SELECT user_id FROM Tenants)";
     db.pool.query(query1, (err, rows, fields) => {

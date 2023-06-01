@@ -3,13 +3,10 @@
   <h1>Information Requests</h1>
   <h3>Add New Information Request :</h3>
 
-  <!-- This area will display errors if the user doesn't add proper input-->
-  <h4>{{insert_error}}</h4>
-
   <!-- Form to insert new Information Request -->
   <form
     id="addinformationRequest"
-    action="/informationRequest"
+    action="/informationRequests"
     method="post"
     onkeydown="return event.key != 'Enter';"
   >
@@ -17,7 +14,7 @@
     User ID:
     <select name="user_id">
       <option disabled selected value> -- select an option -- </option>
-        {{#each user_id}}
+        {{#each user}}
           <option value="{{user_id}}">{{user_id}}</option>
         {{/each}}
     </select>
@@ -35,13 +32,12 @@
     <br />
 
     Address:
-    <input
-      type="text"
-      name="address"
-      placeholder="Enter Address"
-      required
-    />
-    <br />
+    <select name="address">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each address}}
+          <option value="{{address}}">{{address}}</option>
+        {{/each}}
+    </select>
     <br />
     <br />
     <input type="submit" value="Submit" />
