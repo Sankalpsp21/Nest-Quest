@@ -27,3 +27,19 @@ body {
 .topnav {
     border-top: 0.188rem solid rgb(3, 0, 0);
   }
+.hidden{
+    display: none;
+}
+.modal {
+    position: fixed;
+    z-index: 10;
+    left: 25%;
+    top: 25%;
+    width: auto;
+    height: auto;
+    background-color: lightblue;
+    border-style: solid;
+    border-width: 5px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    padding: 5px;
+}
