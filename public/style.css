@@ -1,9 +1,13 @@
 html{
     background-color:#cecccc;
+    font-family: 'Roboto', sans-serif;
 }
 
 table, th, td {
     border: 1px solid black;
+    background-color: #949393;
+    border-width: 2px;
+    border-color: black;
 }
 
 body {
@@ -15,15 +19,22 @@ body {
 
 .mainbody{
     margin: 5px;
+    display: inline-block;
 }
 
 .header-title {
     background: rgb(238, 135, 90);
     padding: 0.938rem;
     color: white;
+
     font-size: 1.563rem;
-    font-weight: bold;
+    font-weight: 400;
     cursor: default;
+}
+
+.whitelink{
+    color: white;
+    text-decoration: none;
 }
 
 .topnav {
@@ -42,7 +53,7 @@ ul.nonindex {
     background-color: #4b4b4b;
 }
 
-li.nonhome {
+li.page {
     float: left;
     color: white;
     font-size: 1rem;
@@ -54,14 +65,4 @@ li a {
     color: white;
     padding: 0.875rem 1rem;
     text-decoration: none;
-}
-
-form {
-    display: inline-block;
-    margin-right: 20px;
-}
-    
-table {
-    display: inline-block;
-    margin-bottom: 20px;
 }
