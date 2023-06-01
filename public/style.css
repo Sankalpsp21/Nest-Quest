@@ -1,4 +1,7 @@
-/* Eventually we'll add styling here */
+html{
+    background-color:#cecccc;
+}
+
 table, th, td {
     border: 1px solid black;
 }
@@ -14,7 +17,6 @@ body {
     margin: 5px;
 }
 
-
 .header-title {
     background: rgb(238, 135, 90);
     padding: 0.938rem;
@@ -26,4 +28,40 @@ body {
 
 .topnav {
     border-top: 0.188rem solid rgb(3, 0, 0);
-  }
+}
+
+.indexlink{
+    margin: 5px;
+}
+
+ul.nonindex {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4b4b4b;
+}
+
+li.nonhome {
+    float: left;
+    color: white;
+    font-size: 1rem;
+}
+
+li a {
+    display: block;
+    text-align: left;
+    color: white;
+    padding: 0.875rem 1rem;
+    text-decoration: none;
+}
+
+form {
+    display: inline-block;
+    margin-right: 20px;
+}
+    
+table {
+    display: inline-block;
+    margin-bottom: 20px;
+}
