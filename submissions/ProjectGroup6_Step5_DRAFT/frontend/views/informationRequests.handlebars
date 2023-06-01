@@ -1,0 +1,71 @@
+<html>
+
+  <h1>Information Requests</h1>
+  <h3>Add New Information Request :</h3>
+
+  <!-- Form to insert new Information Request -->
+  <form
+    id="addinformationRequest"
+    action="/informationRequests"
+    method="post"
+    onkeydown="return event.key != 'Enter';"
+  >
+
+    User ID:
+    <select name="user_id">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each user}}
+          <option value="{{user_id}}">{{user_id}}</option>
+        {{/each}}
+    </select>
+    <br />
+    <br />
+
+    Date Contacted:
+    <input
+      type="date"
+      name="date_contacted"
+      placeholder="Enter Date Contacted"
+      required
+    />
+    <br />
+    <br />
+
+    Address:
+    <select name="address">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each address}}
+          <option value="{{address}}">{{address}}</option>
+        {{/each}}
+    </select>
+    <br />
+    <br />
+    <input class="submit-button" type="submit" value="Submit" />
+  </form>
+    <br />
+    
+
+
+  {{!-- Displays Current Information Request Entity Table  --}}
+  <h3>Current Information Requests:</h3>
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>Date Contacted</th>
+        <th>Address</th>
+    </thead>
+    
+    {{!-- Displays a row for each Information Request in the db.  --}}
+    <tbody>
+      {{#each informationRequest}}
+        <tr>
+          <td>{{user_id}}</td>
+          <td>{{date_contacted}}</td>
+          <td>{{address}}</td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each Information Request in the db.  --}}
+
+    </tbody>
+  </table>
+</html>

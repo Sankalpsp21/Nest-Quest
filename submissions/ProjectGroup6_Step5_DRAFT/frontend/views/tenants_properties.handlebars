@@ -1,0 +1,126 @@
+<html>
+
+  <h1>Tenants and Properties</h1>
+  <h3>Add New Tenant:</h3>
+
+  <!-- Form to insert new Tenant -->
+  <form
+    id="addtenant"
+    action="/tenants_properties"
+    method="post"
+    onkeydown="return event.key != 'Enter';"
+  >
+
+    User ID:
+    <select name="user_id">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each user}}
+          <option value="{{user_id}}">{{user_id}}</option>
+        {{/each}}
+    </select>
+    <br />
+    <br />
+
+    Role:
+    <input
+      type="text"
+      name="role"
+      placeholder="Enter Role"
+      required
+    />
+    <br />
+    <br />
+
+    <input class="submit-button" type="submit" value="Submit" />
+  </form>
+
+  
+  {{!-- ---------------------------------------------------------------------------------------------- --}}
+  <h3>Add New Tenant-Property Relationship:</h3>
+
+  <!-- Form to insert new Tenant Property -->
+  <form
+    id="add-tenant-property"
+    action="/tenants_properties/add-tenant-property"
+    method="post"
+    onkeydown="return event.key != 'Enter';"
+  >
+
+    User ID:
+    <select name="user_id">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each tenantID}}
+          <option value="{{user_id}}">{{user_id}}</option>
+        {{/each}}
+    </select>
+    <br />
+    <br />
+
+    Address:
+    <select name="address">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each address}}
+          <option value="{{address}}">{{address}}</option>
+        {{/each}}
+    </select>
+    <br />
+    <br />
+    <input class="submit-button" type="submit" value="Submit" />
+  </form>
+
+{{!-- ---------------------------------------------------------------------------------------------- --}}
+
+  {{!-- Displays Current Information Tenant Entity Table  --}}
+  <h3>Current Tenants:</h3>
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>Role</th>
+    </thead>
+    
+    {{!-- Displays a row for each Tenant in the db.  --}}
+    <tbody>
+      {{#each tenant}}
+        <tr>
+          <td>{{user_id}}</td>
+          <td>{{role}}</td>
+          <td>
+            <form 
+              action = "/tenants_properties/delete/{{user_id}}" 
+              method = "post">
+              <button>Delete</button>
+            </form>
+          </td>
+        </tr>
+
+      {{/each}}
+    {{!-- Displays a row for each Tenant in the db.  --}}
+
+    </tbody>
+  </table>
+
+{{!-- ---------------------------------------------------------------------------------------------- --}}
+
+  {{!-- Displays Current Information TenantProperty Entity Table  --}}
+  <h3>Current Tenant-Properties:</h3>
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>Address</th>
+    </thead>
+    
+    {{!-- Displays a row for each Tenant in the db.  --}}
+    <tbody>
+      {{#each tenantProperty}}
+        <tr>
+          <td>{{user_id}}</td>
+          <td>{{address}}</td>
+          <td><form action = "/tenants_properties/delete-tenant-property/{{user_id}}" method = "post">
+            <button>Delete</button></form></td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each Tenant in the db.  --}}
+
+    </tbody>
+  </table>
+</html>

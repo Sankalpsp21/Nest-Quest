@@ -1,0 +1,68 @@
+<html>
+
+  <h1>Seekers</h1>
+  <h3>Add New Seeker :</h3>
+
+  <!-- Form to insert new Seeker -->
+  <form
+    id="addseeker"
+    action="/seekers"
+    method="post"
+    onkeydown="return event.key != 'Enter';"
+  >
+
+    User ID:
+    <select name="user_id">
+      <option disabled selected value> -- select an option -- </option>
+        {{#each user}}
+          <option value="{{user_id}}">{{user_id}}</option>
+        {{/each}}
+        required
+    </select>
+    <br />
+    <br />
+
+    Price Upper:
+    <input
+      type="number"
+      name="price_upper"
+      placeholder="Enter Upper Price"
+      required
+    /><br />
+    <br />
+
+    Price Lower:
+    <input
+      type="number"
+      name="price_lower"
+      placeholder="Enter Lower Price"
+      required
+    /><br />
+    <br />
+    <input class="submit-button" type="submit" value="Submit" />
+  </form>
+
+
+  {{!-- Displays Current Seeker Entity Table  --}}
+  <h3>Current Seekers:</h3>
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>Upper Price</th>
+        <th>Lower Price</th>
+    </thead>
+    
+    {{!-- Displays a row for each seeker in the db.  --}}
+    <tbody>
+      {{#each seeker}}
+        <tr>
+          <td>{{user_id}}</td>
+          <td>{{price_upper}}</td>
+          <td>{{price_lower}}</td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each user in the db.  --}}
+
+    </tbody>
+  </table>
+</html>
