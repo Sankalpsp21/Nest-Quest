@@ -1,9 +1,11 @@
 <html>
 
   <h1>Users</h1>
-  <h3>Add New User :</h3>
+  <button onclick="showModal(0)">Add New User</button>
 
   <!-- Form to insert new User. The action defines where the data gets sent -->
+  <div class = "modal hidden">
+  <h3>Adding User: </h3>
   <form
     id="adduser"
     action="/users"
@@ -83,6 +85,8 @@
     <br />
     <input class="submit-button" type="submit" value="Submit"/>
   </form>
+  <button onclick="closeModal(0)">Close</button>
+  </div>
 
 
 {{!---------- This section is to search for users --------------}}
@@ -155,7 +159,7 @@
   </table>
    <div class = "modal hidden">
     <h3>Update User: </h3>
-    <button class = "close-modal" onclick="closeModal()">Close</button>
+    <button class = "close-modal" onclick="closeModal(1)">Close</button>
   </div>
   <script>
           function update(user_id){
@@ -177,17 +181,24 @@
             updateform.action = '/users/update/' + user_id;
             
             
-            var modal = document.getElementsByClassName("modal");
-            modal[0].getElementsByTagName("h3")[0].textContent = "Update User: " + user_id;
-            modal[0].appendChild(updateform);
-            modal[0].classList.remove("hidden");
+            var modal = document.getElementsByClassName("modal")[1];
+            if(modal.childElementCount>2){
+              modal.removeChild(modal.children[2], modal.children[3], modal.children[4]);
+            }
+            modal.getElementsByTagName("h3")[0].textContent = "Update User: " + user_id;
+            modal.appendChild(updateform);
+            modal.classList.remove("hidden");
             //console.log(modal[0]);
           }
-          function closeModal(){
-            var modal = document.getElementsByClassName("modal")[0];
+          function closeModal(which){
+            var modal = document.getElementsByClassName("modal")[which];
             modal.classList.add("hidden");
-            modal.removeChild(modal.children[2], modal.children[3], modal.children[4]);
+            
       
     }
+          function showModal(which){
+            var modal = document.getElementsByClassName("modal")[which];
+            modal.classList.remove("hidden"); 
+          }
         </script>
 </html>
