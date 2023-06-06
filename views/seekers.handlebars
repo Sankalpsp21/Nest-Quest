@@ -1,7 +1,37 @@
 <html>
 
   <h1>Seekers</h1>
-  <button onclick="openModal()">New Seeker</button>
+
+  {{!-- Displays Current Seeker Entity Table  --}}
+  <h3>Current Seekers:</h3>
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>Upper Price</th>
+        <th>Lower Price</th>
+    </thead>
+    
+    {{!-- Displays a row for each seeker in the db.  --}}
+    <tbody>
+      {{#each seeker}}
+        <tr>
+          <td>{{user_id}}</td>
+          <td>{{price_upper}}</td>
+          <td>{{price_lower}}</td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each user in the db.  --}}
+
+    </tbody>
+  </table>
+
+  <br />
+  <br />
+
+  <button class="add-new-button" onclick="openModal()">New Seeker</button>
+
+  <br />
+  <br />
 
   <!-- Form to insert new Seeker -->
   <div class="hidden modal">
@@ -44,28 +74,9 @@
   </form>
   <button onclick="closeModal()">Close</button>
 </div>
-  {{!-- Displays Current Seeker Entity Table  --}}
-  <h3>Current Seekers:</h3>
-  <table>
-    <thead>
-        <th>User ID</th>
-        <th>Upper Price</th>
-        <th>Lower Price</th>
-    </thead>
-    
-    {{!-- Displays a row for each seeker in the db.  --}}
-    <tbody>
-      {{#each seeker}}
-        <tr>
-          <td>{{user_id}}</td>
-          <td>{{price_upper}}</td>
-          <td>{{price_lower}}</td>
-        </tr>
-      {{/each}}
-    {{!-- Displays a row for each user in the db.  --}}
 
-    </tbody>
-  </table>
+
+  
 </html>
 <script>
   function closeModal(){

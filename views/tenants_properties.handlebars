@@ -1,7 +1,70 @@
 <html>
 
   <h1>Tenants and Properties</h1>
-  <button onclick="openModal(0)">Add New Tenant</button>
+
+  <div class="header-container">
+  <h3 class="left">Current Tenants:</h3>
+  <h3 class="right">Current Tenant-Properties:</h3>
+</div>
+
+<div class="table-display">
+  {{!-- Displays Current Information Tenant Entity Table  --}}
+  
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>Role</th>
+    </thead>
+    
+    {{!-- Displays a row for each Tenant in the db.  --}}
+    <tbody>
+      {{#each tenant}}
+        <tr>
+          <td>{{user_id}}</td>
+          <td>{{role}}</td>
+          <td>
+            <form 
+              action = "/tenants_properties/delete/{{user_id}}" 
+              method = "post">
+              <button>Delete</button>
+            </form>
+          </td>
+        </tr>
+
+      {{/each}}
+    {{!-- Displays a row for each Tenant in the db.  --}}
+
+    </tbody>
+  </table>
+
+  {{!-- Displays Current Information TenantProperty Entity Table  --}}
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>Address</th>
+    </thead>
+    
+    {{!-- Displays a row for each Tenant in the db.  --}}
+    <tbody>
+      {{#each tenantProperty}}
+        <tr>
+          <td>{{user_id}}</td>
+          <td>{{address}}</td>
+          <td><form action = "/tenants_properties/delete-tenant-property/{{user_id}}" method = "post">
+            <button>Delete</button></form></td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each Tenant in the db.  --}}
+
+    </tbody>
+  </table>
+</div>
+
+<div class="button-container">
+  <button class="add-new-button left" onclick="openModal(0)">Add New Tenant</button>
+  <button class="add-new-button right" onclick="openModal(1)">Add New Tenant-Property Relationship</button>
+</div>
+
 
   <!-- Form to insert new Tenant -->
   <div class = "hidden modal">
@@ -36,9 +99,7 @@
   </form>
   <button onclick="closeModal(0)">Close</button>
   </div>
-  
-  {{!-- ---------------------------------------------------------------------------------------------- --}}
-  <button onclick="openModal(1)">Add New Tenant-Property Relationship</button>
+    
 
   <!-- Form to insert new Tenant Property -->
   <div class = "hidden modal">
@@ -73,61 +134,7 @@
   <button onclick="closeModal(1)">Close</button>
   </div>
 
-{{!-- ---------------------------------------------------------------------------------------------- --}}
 
-  {{!-- Displays Current Information Tenant Entity Table  --}}
-  <h3>Current Tenants:</h3>
-  <table>
-    <thead>
-        <th>User ID</th>
-        <th>Role</th>
-    </thead>
-    
-    {{!-- Displays a row for each Tenant in the db.  --}}
-    <tbody>
-      {{#each tenant}}
-        <tr>
-          <td>{{user_id}}</td>
-          <td>{{role}}</td>
-          <td>
-            <form 
-              action = "/tenants_properties/delete/{{user_id}}" 
-              method = "post">
-              <button>Delete</button>
-            </form>
-          </td>
-        </tr>
-
-      {{/each}}
-    {{!-- Displays a row for each Tenant in the db.  --}}
-
-    </tbody>
-  </table>
-
-{{!-- ---------------------------------------------------------------------------------------------- --}}
-
-  {{!-- Displays Current Information TenantProperty Entity Table  --}}
-  <h3>Current Tenant-Properties:</h3>
-  <table>
-    <thead>
-        <th>User ID</th>
-        <th>Address</th>
-    </thead>
-    
-    {{!-- Displays a row for each Tenant in the db.  --}}
-    <tbody>
-      {{#each tenantProperty}}
-        <tr>
-          <td>{{user_id}}</td>
-          <td>{{address}}</td>
-          <td><form action = "/tenants_properties/delete-tenant-property/{{user_id}}" method = "post">
-            <button>Delete</button></form></td>
-        </tr>
-      {{/each}}
-    {{!-- Displays a row for each Tenant in the db.  --}}
-
-    </tbody>
-  </table>
 </html>
 
 <script>

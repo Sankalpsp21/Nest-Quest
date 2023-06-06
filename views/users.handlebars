@@ -1,7 +1,66 @@
 <html>
 
   <h1>Users</h1>
-  <button onclick="showModal(0)">Add New User</button>
+
+    {{!-- Displays Current User Entity Table  --}}
+  <h3>Current Users:</h3>
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Smoking</th>
+        <th>Pet</th>
+        <th>Gender</th>
+        <th>Age</th>
+    </thead>
+    
+    {{!-- Displays a row for each user in the db.  --}}
+    <tbody>
+      {{#each user}}
+        <tr id = {{user_id}}>
+          <td>{{user_id}}</td>
+          <td>{{fname}}</td>
+          <td>{{lname}}</td>
+          <td>{{email}}</td>
+          <td>{{phone}}</td>
+          <td>{{smoking}}</td>
+          <td>{{pet}}</td>
+          <td>{{gender}}</td>
+          <td>{{age}}</td>
+
+          {{!-- Delete and Update Buttons. 
+                Delete uses the functions defined in delete.js passing it the
+                Update takes the user to  --}}
+                
+          <td>
+            <form action = "/users/delete/{{user_id}}" method = "post">
+              <button>Delete</button>
+            </form>
+          </td>
+          <td>
+            <button onclick = 'update({{user_id}})'>Update</button>
+          </td>
+
+
+        </tr>
+        
+      {{/each}}
+    {{!-- Displays a row for each user in the db.  --}}
+      
+    </tbody>
+  </table>
+
+  <br />
+  <br />
+
+  <button class="add-new-button" onclick="showModal(0)">Add New User</button>
+
+  <br />
+  <br />
+
 
   <!-- Form to insert new User. The action defines where the data gets sent -->
   <div class = "modal hidden">
@@ -113,52 +172,7 @@
   {{!---------- This section is to search for users --------------}}
 
 
-  {{!-- Displays Current User Entity Table  --}}
-  <h3>Current Users:</h3>
-  <table>
-    <thead>
-        <th>User ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Smoking</th>
-        <th>Pet</th>
-        <th>Gender</th>
-        <th>Age</th>
-    </thead>
-    
-    {{!-- Displays a row for each user in the db.  --}}
-    <tbody>
-      {{#each user}}
-        <tr id = {{user_id}}>
-          <td>{{user_id}}</td>
-          <td>{{fname}}</td>
-          <td>{{lname}}</td>
-          <td>{{email}}</td>
-          <td>{{phone}}</td>
-          <td>{{smoking}}</td>
-          <td>{{pet}}</td>
-          <td>{{gender}}</td>
-          <td>{{age}}</td>
-
-          {{!-- Delete and Update Buttons. 
-                Delete uses the functions defined in delete.js passing it the
-                Update takes the user to  --}}
-                
-          <td><form action = "/users/delete/{{user_id}}" method = "post">
-          <button>Delete</button></form></td>
-          <td><button onclick = 'update({{user_id}})'>Update</button></td>
-
-
-        </tr>
-        
-      {{/each}}
-    {{!-- Displays a row for each user in the db.  --}}
-      
-    </tbody>
-  </table>
-   <div class = "modal hidden">
+  <div class = "modal hidden">
     <h3>Update User: </h3>
     <button class = "close-modal" onclick="closeModal(1)">Close</button>
   </div>

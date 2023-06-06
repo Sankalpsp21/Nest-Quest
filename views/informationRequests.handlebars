@@ -1,7 +1,37 @@
 <html>
 
   <h1>Information Requests</h1>
-  <button onclick="openModal()">Add New Information Request</button>
+
+    {{!-- Displays Current Information Request Entity Table  --}}
+  <h3>Current Information Requests:</h3>
+  <table>
+    <thead>
+        <th>User ID</th>
+        <th>Date Contacted</th>
+        <th>Address</th>
+    </thead>
+    
+    {{!-- Displays a row for each Information Request in the db.  --}}
+    <tbody>
+      {{#each informationRequest}}
+        <tr>
+          <td>{{user_id}}</td>
+          <td>{{date_contacted}}</td>
+          <td>{{address}}</td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each Information Request in the db.  --}}
+
+    </tbody>
+  </table>
+
+  <br />
+  <br />
+
+  <button class="add-new-button" onclick="openModal()">Add New Information Request</button>
+
+  <br />
+  <br />
 
   <!-- Form to insert new Information Request -->
   <div class="hidden modal">
@@ -48,29 +78,6 @@
     <br />
     
 
-
-  {{!-- Displays Current Information Request Entity Table  --}}
-  <h3>Current Information Requests:</h3>
-  <table>
-    <thead>
-        <th>User ID</th>
-        <th>Date Contacted</th>
-        <th>Address</th>
-    </thead>
-    
-    {{!-- Displays a row for each Information Request in the db.  --}}
-    <tbody>
-      {{#each informationRequest}}
-        <tr>
-          <td>{{user_id}}</td>
-          <td>{{date_contacted}}</td>
-          <td>{{address}}</td>
-        </tr>
-      {{/each}}
-    {{!-- Displays a row for each Information Request in the db.  --}}
-
-    </tbody>
-  </table>
 </html>
 <script>
   function closeModal(){

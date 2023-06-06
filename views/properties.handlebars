@@ -1,7 +1,53 @@
 <html>
 
   <h1>Properties</h1>
-  <button onclick="showModal(0)">Add Property</button>
+
+    {{!-- Displays Current Property Entity Table  --}}
+  <h3>Current Properties:</h3>
+  <table>
+    <thead>
+        <th>Address</th>
+        <th>Rooms</th>
+        <th>Bathrooms</th>
+        <th>Sqft</th>
+        <th>Rent</th>
+        <th>Utilities</th>
+        <th>Description</th>
+    </thead>
+    
+    {{!-- Displays a row for each property in the db.  --}}
+    <tbody>
+      {{#each property}}
+        <tr id = "{{address}}">
+          <td>{{address}}</td>
+          <td>{{rooms}}</td>
+          <td>{{bathrooms}}</td>
+          <td>{{sqft}}</td>
+          <td>{{rent}}</td>
+          <td>{{utilities}}</td>
+          <td>{{description}}</td>
+
+          {{!-- Delete and Update Buttons. 
+                Delete uses the functions defined in delete.js
+                Update takes the user to  --}}
+                
+          <td><form action = "/properties/delete/{{address}}" method = "post">
+          <button>Delete</button></form></td>
+          <td><button onclick = 'update("{{address}}")'>Update</button></td>
+        </tr>
+      {{/each}}
+    {{!-- Displays a row for each property in the db.  --}}
+
+    </tbody>
+  </table>
+
+  <br />
+  <br />
+
+  <button class="add-new-button" onclick="showModal(0)">Add Property</button>
+
+  <br />
+  <br />
 
   <!-- Form to insert new Property -->
   <div class = "hidden modal">
@@ -78,44 +124,7 @@
     <button class = "close-modal" onclick="closeModal(0)">Close</button>
 </div>
 
-  {{!-- Displays Current Property Entity Table  --}}
-  <h3>Current Properties:</h3>
-  <table>
-    <thead>
-        <th>Address</th>
-        <th>Rooms</th>
-        <th>Bathrooms</th>
-        <th>Sqft</th>
-        <th>Rent</th>
-        <th>Utilities</th>
-        <th>Description</th>
-    </thead>
-    
-    {{!-- Displays a row for each property in the db.  --}}
-    <tbody>
-      {{#each property}}
-        <tr id = "{{address}}">
-          <td>{{address}}</td>
-          <td>{{rooms}}</td>
-          <td>{{bathrooms}}</td>
-          <td>{{sqft}}</td>
-          <td>{{rent}}</td>
-          <td>{{utilities}}</td>
-          <td>{{description}}</td>
 
-          {{!-- Delete and Update Buttons. 
-                Delete uses the functions defined in delete.js
-                Update takes the user to  --}}
-                
-          <td><form action = "/properties/delete/{{address}}" method = "post">
-          <button>Delete</button></form></td>
-          <td><button onclick = 'update("{{address}}")'>Update</button></td>
-        </tr>
-      {{/each}}
-    {{!-- Displays a row for each property in the db.  --}}
-
-    </tbody>
-  </table>
 
 
   <div class = "modal hidden">

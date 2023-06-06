@@ -57,6 +57,58 @@ body {
     padding: 5px;
 }
 
+.table-display{
+    /* make the contents inside the dive horizontally aligned */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items:baseline;
+    /* align-content: center; */
+}
+
+.table-display table{
+    margin-right: 100px;
+}
+
+.header-container{
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.header-container .left{
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 30px;
+}
+
+.header-container .right{
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 150px;
+}
+
+.button-container{
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button-container .left{
+    margin-left: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.button-container .right{
+    margin-left: 170px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 
 .indexlink{
     margin: 5px;
@@ -97,4 +149,33 @@ li a {
 
 .submit-button:hover {
     background-color: #ee875a;
+}
+
+.add-new-button{
+    background-color: #4b4b4b;
+    color: white;
+    border-width: 1px;
+    border-color: black;
+    width: auto; 
+    min-width: 100px; 
+    height: 25px;
+    cursor: pointer;
+    text-decoration: none;
+
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px 10px; /* Optional: Adjust padding as needed */
+}
+
+.add-new-button:hover {
+    background-color: #ee875a;
+}
+
+td button:hover{
+    background-color: #04901b;
+}
+
+form button:hover{
+    background-color: #c60404;
 }
