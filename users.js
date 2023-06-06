@@ -1,3 +1,5 @@
+const { get } = require('./users');
+
 module.exports = (function() {
     // Declare Variables
     var db = require('./database/db-connector');
@@ -11,9 +13,6 @@ module.exports = (function() {
     // 3. Search queries
     // 4. Rendering the page
 
-    // Context for layout:
-    // jxscripts: a list of javascript files to include
-
     function getUsers(res, context, done){
       let query1 = "SELECT * FROM Users";
       db.pool.query(query1, (err, rows, fields) => {
@@ -24,7 +23,7 @@ module.exports = (function() {
         }
 
         //Format the data
-        console.log("Fetched users successfully");
+        // console.log("Fetched users successfully");
         context.user = rows.map((row) => {
           return {
             user_id: row.user_id,
@@ -43,13 +42,42 @@ module.exports = (function() {
         done();
       });
     }
+
+    function getSpecifiedUser(res, context, done, fname){
+      let query1 = "SELECT * FROM Users WHERE fname = ?";
+      var dataToSearch = [fname];
+
+      db.pool.query(query1, dataToSearch, (err, rows, fields) => {
+        if(err) {
+          console.log("Failed to query search for users: " + err);
+          res.sendStatus(500);
+          return;
+        }
+
+        //Format the data
+        // console.log("Fetched users successfully");
+        context.user = rows.map((row) => {
+          return {
+            user_id: row.user_id,
+            fname: row.fname,
+            lname: row.lname,
+            email: row.email,
+            phone: row.phone,
+            smoking: row.smoking === 'Yes' ? 'Yes' : 'No',
+            pet: row.pets === 'Yes' ? 'Yes' : 'No',
+            gender: row.gender.charAt(0).toUpperCase() + row.gender.slice(1),
+            age: parseInt(row.age),
+          };
+        });
+
+        done();
+      });
+    }
    
     router.get('/', (req, res) => {
 
-      context = {};
+      var context = {};
 
-      context.search_error = "error message for search";
-      context.insert_error = "error message for insert";
       getUsers(res, context, done);
 
       //Ensures that the database query is done before rendering the page
@@ -58,12 +86,11 @@ module.exports = (function() {
         // console.log(context);
         // Render the users.handlebars file with the context
         res.render('users', context);
-
       }
     });
 
     router.post('/', (req, res) => {
-      console.log("POST request received at /users");
+      // console.log("POST request received at /users");
 
       var query = 
       "INSERT INTO Users(fname, lname, email, phone, smoking, pets, gender, age) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -84,9 +111,24 @@ module.exports = (function() {
       });
     });
 
-    router.post('/delete/:user_id', (req, res) => {
+    router.post('/search', (req, res) => {
+      // console.log("GET request received at /users/search, for fname:"+ req.body.fname);
 
-      console.log("POST request received at /users/delete, for user_id:"+ req.params.user_id);
+      var context = {};
+      getSpecifiedUser(res, context, done, req.body.fname);
+
+      //Ensures that the database query is done before rendering the page
+      function done(){
+        // console.log("Rendering page");        
+        // console.log(context);
+        // Render the users.handlebars file with the context
+        res.render('users', context);
+      }
+    });
+
+    router.post('/delete/:user_id', (req, res) => {
+      // console.log("POST request received at /users/delete, for user_id:"+ req.params.user_id);
+
       var query = "DELETE FROM Users WHERE user_id = ?;"
       db.pool.query(query, req.params.user_id, (err, results, fields) => {
         res.redirect('/users');
@@ -98,7 +140,6 @@ module.exports = (function() {
     router.post('/update/:user_id', (req, res) => {
       var query = "UPDATE Users SET fname = ?, lname = ?, email = ?, phone = ?, smoking = ?, pets = ?, gender = ?, age = ? WHERE user_id = ?; ";
       
-
       var dataToInsert = [
         req.body.fname,
         req.body.lname,
@@ -115,10 +156,6 @@ module.exports = (function() {
         res.redirect('/users');
       });
     });
-
-    
- 
-    
 
     //This router object is what handles the requests to "/users"
     return router;

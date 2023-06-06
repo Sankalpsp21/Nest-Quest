@@ -6,11 +6,11 @@
   <!-- Form to insert new User. The action defines where the data gets sent -->
   <div class = "modal hidden">
   <h3>Adding User: </h3>
+
   <form
     id="adduser"
     action="/users"
     method="post"
-    onkeydown="return event.key != 'Enter';"
   >
     First Name:
     <input
@@ -90,25 +90,26 @@
 
 
 {{!---------- This section is to search for users --------------}}
+ 
+ <!-- Search Input Form -->
   <form
     id="search_user"
-    action=""
-    method=""
-    onkeydown="return event.key != 'Enter';"
+    action="/users/search"
+    method="post"
   >
     <label> Search for User by First Name:</label>
 
-    <!-- Search Input Form -->
     <input
-      id="search_string"
       type="text"
-      name="search_string"
-      value=""
-      placeholder="Enter User First Name"
+      name="fname"
+      placeholder="Enter User's First Name"
+      required
     />
-    <input class="submit-button" type="button" value="Search" onclick="searchUser()" />
-    <button class="submit-button" type="button"><a class="blacklink" href="/user">Cancel Search</a></button>
+
+    <input class="submit-button" type="submit" value="Submit"/>
+    <button class="cancel-button" type="button"><a class="blacklink" href="/users">Cancel Search</a></button>
   </form>
+
   {{!---------- This section is to search for users --------------}}
 
 
@@ -161,6 +162,8 @@
     <h3>Update User: </h3>
     <button class = "close-modal" onclick="closeModal(1)">Close</button>
   </div>
+
+
   <script>
           function update(user_id){
             var text;
