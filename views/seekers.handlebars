@@ -1,9 +1,10 @@
 <html>
 
   <h1>Seekers</h1>
-  <h3>Add New Seeker :</h3>
+  <button onclick="openModal()">New Seeker</button>
 
   <!-- Form to insert new Seeker -->
+  <div class="hidden modal">
   <form
     id="addseeker"
     action="/seekers"
@@ -41,8 +42,8 @@
     <br />
     <input class="submit-button" type="submit" value="Submit" />
   </form>
-
-
+  <button onclick="closeModal()">Close</button>
+</div>
   {{!-- Displays Current Seeker Entity Table  --}}
   <h3>Current Seekers:</h3>
   <table>
@@ -66,3 +67,14 @@
     </tbody>
   </table>
 </html>
+<script>
+  function closeModal(){
+    var modal = document.getElementsByClassName("modal")[0];
+    modal.classList.add("hidden");
+  }
+
+  function openModal(){
+    var modal = document.getElementsByClassName("modal")[0];
+    modal.classList.remove("hidden");
+  }
+</script>

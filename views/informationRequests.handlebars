@@ -1,9 +1,10 @@
 <html>
 
   <h1>Information Requests</h1>
-  <h3>Add New Information Request :</h3>
+  <button onclick="openModal()">Add New Information Request</button>
 
   <!-- Form to insert new Information Request -->
+  <div class="hidden modal">
   <form
     id="addinformationRequest"
     action="/informationRequests"
@@ -42,6 +43,8 @@
     <br />
     <input class="submit-button" type="submit" value="Submit" />
   </form>
+  <button onclick="closeModal()">Close</button>
+  </div>
     <br />
     
 
@@ -69,3 +72,14 @@
     </tbody>
   </table>
 </html>
+<script>
+  function closeModal(){
+    var modal = document.getElementsByClassName("modal")[0];
+    modal.classList.add("hidden");
+  }
+
+  function openModal(){
+    var modal = document.getElementsByClassName("modal")[0];
+    modal.classList.remove("hidden");
+  }
+</script>

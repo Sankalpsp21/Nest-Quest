@@ -151,11 +151,11 @@
             //console.log(updateform.action)
             var modal = document.getElementsByClassName("modal")[1];
             if(modal.childElementCount>2){
-               modal.removeChild(modal.children[2], modal.children[3], modal.children[4]);
+               modal.removeChild(modal.children[1], modal.children[2], modal.children[3]);
             }
           
             //modal[0].getElementsByTagName("h3")[0].textContent = "Update Properties: " + address;
-            modal.appendChild(updateform);
+            modal.insertBefore(updateform,modal.childNodes[2]);
             modal.classList.remove("hidden");
             
       

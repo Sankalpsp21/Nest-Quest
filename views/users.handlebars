@@ -183,13 +183,14 @@
             
             var modal = document.getElementsByClassName("modal")[1];
             if(modal.childElementCount>2){
-              modal.removeChild(modal.children[2], modal.children[3], modal.children[4]);
+              modal.removeChild(modal.children[1], modal.children[2], modal.children[3]);
             }
             modal.getElementsByTagName("h3")[0].textContent = "Update User: " + user_id;
-            modal.appendChild(updateform);
+            modal.insertBefore(updateform, modal.childNodes[2]);
             modal.classList.remove("hidden");
             //console.log(modal[0]);
           }
+
           function closeModal(which){
             var modal = document.getElementsByClassName("modal")[which];
             modal.classList.add("hidden");

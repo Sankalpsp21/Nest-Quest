@@ -1,9 +1,10 @@
 <html>
 
   <h1>Tenants and Properties</h1>
-  <h3>Add New Tenant:</h3>
+  <button onclick="openModal(0)">Add New Tenant</button>
 
   <!-- Form to insert new Tenant -->
+  <div class = "hidden modal">
   <form
     id="addtenant"
     action="/tenants_properties"
@@ -33,12 +34,14 @@
 
     <input class="submit-button" type="submit" value="Submit" />
   </form>
-
+  <button onclick="closeModal(0)">Close</button>
+  </div>
   
   {{!-- ---------------------------------------------------------------------------------------------- --}}
-  <h3>Add New Tenant-Property Relationship:</h3>
+  <button onclick="openModal(1)">Add New Tenant-Property Relationship</button>
 
   <!-- Form to insert new Tenant Property -->
+  <div class = "hidden modal">
   <form
     id="add-tenant-property"
     action="/tenants_properties/add-tenant-property"
@@ -67,6 +70,8 @@
     <br />
     <input class="submit-button" type="submit" value="Submit" />
   </form>
+  <button onclick="closeModal(1)">Close</button>
+  </div>
 
 {{!-- ---------------------------------------------------------------------------------------------- --}}
 
@@ -124,3 +129,15 @@
     </tbody>
   </table>
 </html>
+
+<script>
+  function closeModal(which){
+    var modal = document.getElementsByClassName("modal")[which];
+    modal.classList.add("hidden");
+  }
+
+  function openModal(which){
+    var modal = document.getElementsByClassName("modal")[which];
+    modal.classList.remove("hidden");
+  }
+</script>
