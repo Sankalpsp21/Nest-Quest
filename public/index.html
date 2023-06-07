@@ -2,21 +2,18 @@
   <head>
     <meta charset="utf-8" />
     <title>Nest Quest: Find a Place</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <script
-      src="https://kit.fontawesome.com/2441406a2d.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./style.css" media="screen" />
+    <link rel="stylesheet" href="./style.css"/>
   </head>
 
 
   <body>
     <header class="header-title">
-      <a class="whitelink" href="/"
+      <a class="home" href="/"
         ><i class="fa-solid "></i> Nest Quest: Find a Place</a
       >
     </header>
@@ -35,7 +32,7 @@
     </div>
 
     <div class="indexlink">
-      <h2>Welcome to the NestQuest Website!</h2>
+      <h2>Welcome to NestQuest!</h2>
 
       <h4>Overview</h4>
       <ul class="homeli">
@@ -43,13 +40,13 @@
           Users holds information about every user in the database.
         </li>
         <li>
-          Seekers holds information about users searching for a place to live.
+          Seekers holds information about seekers, users searching for a place to live.
         </li>
         <li>
-          Tenants holds information about users who already live in a property.
+          Tenants holds information about tenants - users who already live in a property - and also an intersection table to properties.
         </li>
         <li>
-          Information Requests holds information about infor request sent out by seekers who have requested information about a property.
+          Information Requests holds information about information requests sent out by seekers about a particular property.
         </li>
         <li>
           Reviews holds information about property reviews written by users.

@@ -1,8 +1,5 @@
-
-var db = require('./database/db-connector');
 const express = require('express');
 const exphbs = require('express-handlebars');
-const bodyParser = require('body-parser');
 
 //Setting up the templating engine
 const app = express();
@@ -20,6 +17,9 @@ app.engine('handlebars', exphbs.engine({
 //Ensures that the css and script files are accesible
 app.use(express.static('public'));
 
+
+// The process of splitting up routes into seperate files and setting up routes 
+// using an exported router was inspired by https://github.com/solderq35/hospital-website/blob/renderbranch/main.js
 
 //Setting up routes
 app.use("/users", require("./users.js"));

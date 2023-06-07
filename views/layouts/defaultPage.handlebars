@@ -5,21 +5,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <script
-      src="https://kit.fontawesome.com/2441406a2d.js"
-      crossorigin="anonymous"
-    ></script>
-
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-      crossorigin="anonymous"
-    ></script>
-    
-    {{#each jsscripts}}
-      <script src="/static/{{this}}"></script>
-    {{/each}}
-
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
@@ -38,6 +23,8 @@
       </ul>
     </div>
 
+    {{!-- The structure for the table within the body of the page is inspired by 
+    the following started code https://canvas.oregonstate.edu/courses/1914742/pages/exploration-web-application-technology?module_item_id=23054040 --}}
     <div class="mainbody">
       {{{body}}}
     </div>

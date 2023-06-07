@@ -22,6 +22,7 @@ body {
     display: inline-block;
 }
 
+/* Styling for the header and link list were inspired by https://github.com/solderq35/hospital-website/blob/renderbranch/public/style.css */
 .header-title {
     background: #ee875a;
     padding: 0.938rem;
@@ -37,9 +38,32 @@ body {
     text-decoration: none;
 }
 
-.topnav {
-    border-top: 0.188rem solid rgb(3, 0, 0);
-  }
+.indexlink{
+    margin: 5px;
+}
+
+ul.nonindex {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4b4b4b;
+}
+
+li.page {
+    float: left;
+    color: white;
+    font-size: 1rem;
+}
+
+li a {
+    display: block;
+    text-align: left;
+    color: white;
+    padding: 0.875rem 1rem;
+    text-decoration: none;
+}
+
 .hidden{
     display: none;
 }
@@ -107,33 +131,6 @@ body {
     margin-left: 170px;
     margin-top: 0px;
     margin-bottom: 0px;
-}
-
-
-.indexlink{
-    margin: 5px;
-}
-
-ul.nonindex {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #4b4b4b;
-}
-
-li.page {
-    float: left;
-    color: white;
-    font-size: 1rem;
-}
-
-li a {
-    display: block;
-    text-align: left;
-    color: white;
-    padding: 0.875rem 1rem;
-    text-decoration: none;
 }
 
 .submit-button{

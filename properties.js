@@ -13,14 +13,6 @@ module.exports = (function() {
   // 3. Search queries
   // 4. Rendering the page
 
-  // Context for layout:
-  // jxscripts: a list of javascript files to include
-
-
-
-  // Route for showing a specific User entry to update
-  // router.get('/:id', function(req, res, next){
-
   function getProperties(res, context, done){
     let query1 = "SELECT * FROM Properties";
     db.pool.query(query1, (err, rows, fields) => {

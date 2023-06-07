@@ -1,5 +1,3 @@
-const { get } = require('./users');
-
 module.exports = (function() {
     // Declare Variables
     var db = require('./database/db-connector');
