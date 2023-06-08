@@ -13,17 +13,15 @@
 
   <body>
     <header class="header-title">
-      <a class="home" href="/"
-        ><i class="fa-solid "></i> Nest Quest: Find a Place</a
-      >
+      <a class="home" href="/"> Nest Quest: Find a Place</a>
     </header>
 
-    <div class="topnav">
-      <ul class="nonindex">
+    <div class="navbar">
+      <ul class="homepage">
         <li class="page"><a href="/">Home</a></li>
         <li class="page"><a href="/users">Users</a></li>
         <li class="page"><a href="/seekers">Seekers</a></li>
-        <li class="page"><a href="/tenantsAndDirectory">Tenants</a></li>
+        <li class="page"><a href="/tenants_properties">Tenants and Properties</a></li>
         <li class="page"><a href="/properties">Properties</a></li>
         <li class="page"><a href="informationRequests">Information Requests</a></li>
         <li class="page"><a href="/reviews">Reviews</a></li>
@@ -31,43 +29,30 @@
       <br />
     </div>
 
-    <div class="indexlink">
+    <div class="entry-page-text">
       <h2>Welcome to NestQuest!</h2>
 
-      <h4>Overview</h4>
-      <ul class="homeli">
-        <li>
-          Users holds information about every user in the database.
-        </li>
-        <li>
-          Seekers holds information about seekers, users searching for a place to live.
-        </li>
-        <li>
-          Tenants holds information about tenants - users who already live in a property - and also an intersection table to properties.
-        </li>
-        <li>
-          Information Requests holds information about information requests sent out by seekers about a particular property.
-        </li>
-        <li>
-          Reviews holds information about property reviews written by users.
-        </li>
+      <h3>Overview</h3>
+      <p>
+        The is the database managment website for NestQuest. NestQuest is a web application that allows users to find a place to live. 
+        Users can search for properties, view information about them, and request more information from the property owner.
+        Users can also write reviews about properties they have lived in.
+      </p>
+
+      <h3>Entity Descriptions</h3>
+      <ul>
+        <li>Users holds information about every user in the database.</li>
+        <li>Seekers holds information about seekers, users searching for a place to live.</li>
+        <li>Tenants holds information about tenants - users who already live in a property - and also an intersection table to properties.</li>
+        <li>Information Requests holds information about information requests sent out by seekers about a particular property.</li>
+        <li>Reviews holds information about property reviews written by users.</li>
       </ul>
 
-
-      <h4>Specifications</h4>
-      <ul class="homeli">
-
-        <li>
-          Insert / Select(Read)  implemented for all entities.
-        </li>
-
-        <li>
-          Delete / Update implemented for Users and Properties.
-        </li>
-
-        <li>
-          Search implemented for Users.
-        </li>
+      <h3>Specifications</h3>
+      <ul>
+        <li>Insert / Select(Read)  implemented for all entities.</li>
+        <li>Delete / Update implemented for Users and Properties.</li>
+        <li>Search implemented for Users.</li>
       </ul>
     </div>
   </body>

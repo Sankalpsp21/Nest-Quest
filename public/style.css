@@ -38,11 +38,11 @@ body {
     text-decoration: none;
 }
 
-.indexlink{
+.entry-page-text{
     margin: 5px;
 }
 
-ul.nonindex {
+ul.homepage {
     list-style-type: none;
     margin: 0;
     padding: 0;
