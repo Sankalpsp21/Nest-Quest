@@ -33,12 +33,12 @@
 
                 
           <td>
-            <form action = "/users/delete/{{user_id}}" method = "post">
+            <form action = "/users/delete/{{user_id}}" method = "post" class="user-delete">
               <button>Delete</button>
             </form>
           </td>
           <td>
-            <button onclick = 'update({{user_id}})'>Update</button>
+            <button onclick = 'update({{user_id}})' class="user-update">Update</button>
           </td>
 
 
@@ -60,7 +60,6 @@
 
 
   <!-- Form to insert new User. The action defines where the data gets sent -->
-  {{!-- The layout for the form was inspired by the starter code: https://canvas.oregonstate.edu/courses/1914742/pages/exploration-web-application-technology?module_item_id=23054040 --}}
   <div class = "modal hidden">
   <h3>Adding User: </h3>
 

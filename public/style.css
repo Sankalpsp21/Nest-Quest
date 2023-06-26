@@ -5,7 +5,6 @@ html{
 
 table, th, td {
     border: 1px solid black;
-    background-color: #949393;
     border-width: 2px;
     border-color: black;
 }
@@ -22,12 +21,10 @@ body {
     display: inline-block;
 }
 
-/* Styling for the header and link list were inspired by https://github.com/solderq35/hospital-website/blob/renderbranch/public/style.css */
 .header-title {
-    background: #ee875a;
+    background: #ef7b49;
     padding: 0.938rem;
     color: white;
-
     font-size: 1.563rem;
     font-weight: 400;
     cursor: default;
@@ -39,7 +36,11 @@ body {
 }
 
 .entry-page-text{
-    margin: 5px;
+    margin: 10px;
+}
+
+.navbar{
+    border-top: 0.188rem solid rgb(0, 0, 6);
 }
 
 ul.homepage {
@@ -56,12 +57,28 @@ li.page {
     font-size: 1rem;
 }
 
+li.page:hover {
+    background-color: #eeac90;
+}
+
 li a {
     display: block;
     text-align: left;
     color: white;
     padding: 0.875rem 1rem;
     text-decoration: none;
+}
+
+td form{
+    display: flex;
+    align-items: center;
+    margin: 3px;
+}
+
+td button{
+    display: flex;
+    align-items: center;
+    margin: 3px;
 }
 
 .hidden{
@@ -82,7 +99,7 @@ li a {
 }
 
 .table-display{
-    /* make the contents inside the dive horizontally aligned */
+    /* make the contents inside the div horizontally aligned */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

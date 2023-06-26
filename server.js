@@ -18,9 +18,6 @@ app.engine('handlebars', exphbs.engine({
 app.use(express.static('public'));
 
 
-// The process of splitting up routes into seperate files and setting up routes 
-// using an exported router was inspired by https://github.com/solderq35/hospital-website/blob/renderbranch/main.js
-
 //Setting up routes
 app.use("/users", require("./users.js"));
 app.use("/seekers", require("./seekers.js"));
