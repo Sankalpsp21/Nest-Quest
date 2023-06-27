@@ -4,6 +4,9 @@ module.exports = (function() {
     var express = require("express");
     var router = express.Router();
 
+    // Access the sql object from the db-connector module
+    var sql = db.sql;
+    var config = db.config;
 
     // Here, we will write functions to handle
     // 1. Input validation
@@ -11,66 +14,71 @@ module.exports = (function() {
     // 3. Search queries
     // 4. Rendering the page
 
-    function getUsers(res, context, done){
-      let query1 = "SELECT * FROM Users";
-      db.pool.query(query1, (err, rows, fields) => {
-        if(err) {
-          console.log("Failed to query for users: " + err);
+    function getUsers(res, context, done) {
+      const query = 'SELECT * FROM Users';
+    
+      sql.connect(config)
+        .then((pool) => {
+          return pool.request().query(query);
+        })
+        .then((result) => {
+          const rows = result.recordset;
+    
+          context.user = rows.map((row) => {
+            return {
+              user_id: row.user_id,
+              fname: row.fname,
+              lname: row.lname,
+              email: row.email,
+              phone: row.phone,
+              smoking: row.smoking === 'Yes' ? 'Yes' : 'No',
+              pet: row.pets === 'Yes' ? 'Yes' : 'No',
+              gender: row.gender.charAt(0).toUpperCase() + row.gender.slice(1),
+              age: parseInt(row.age),
+            };
+          });
+    
+          done();
+        })
+        .catch((err) => {
+          console.error('Failed to query for users:', err);
           res.sendStatus(500);
-          return;
-        }
-
-        //Format the data
-        // console.log("Fetched users successfully");
-        context.user = rows.map((row) => {
-          return {
-            user_id: row.user_id,
-            fname: row.fname,
-            lname: row.lname,
-            email: row.email,
-            phone: row.phone,
-            smoking: row.smoking === 'Yes' ? 'Yes' : 'No',
-            pet: row.pets === 'Yes' ? 'Yes' : 'No',
-            gender: row.gender.charAt(0).toUpperCase() + row.gender.slice(1),
-            age: parseInt(row.age),
-          };
         });
-
-        // console.log(context);
-        done();
-      });
     }
 
-    function getSpecifiedUser(res, context, done, fname){
-      let query1 = "SELECT * FROM Users WHERE fname = ?";
-      var dataToSearch = [fname];
-
-      db.pool.query(query1, dataToSearch, (err, rows, fields) => {
-        if(err) {
-          console.log("Failed to query search for users: " + err);
+    
+    function getSpecifiedUser(res, context, done, fname) {
+      const query = 'SELECT * FROM Users WHERE fname = @fname';
+    
+      sql.connect(config)
+        .then((pool) => {
+          return pool.request().input('fname', sql.VarChar, fname).query(query);
+        })
+        .then((result) => {
+          const rows = result.recordset;
+    
+          context.user = rows.map((row) => {
+            return {
+              user_id: row.user_id,
+              fname: row.fname,
+              lname: row.lname,
+              email: row.email,
+              phone: row.phone,
+              smoking: row.smoking === 'Yes' ? 'Yes' : 'No',
+              pet: row.pets === 'Yes' ? 'Yes' : 'No',
+              gender: row.gender.charAt(0).toUpperCase() + row.gender.slice(1),
+              age: parseInt(row.age),
+            };
+          });
+    
+          done();
+        })
+        .catch((err) => {
+          console.error('Failed to query search for users:', err);
           res.sendStatus(500);
-          return;
-        }
-
-        //Format the data
-        // console.log("Fetched users successfully");
-        context.user = rows.map((row) => {
-          return {
-            user_id: row.user_id,
-            fname: row.fname,
-            lname: row.lname,
-            email: row.email,
-            phone: row.phone,
-            smoking: row.smoking === 'Yes' ? 'Yes' : 'No',
-            pet: row.pets === 'Yes' ? 'Yes' : 'No',
-            gender: row.gender.charAt(0).toUpperCase() + row.gender.slice(1),
-            age: parseInt(row.age),
-          };
         });
-
-        done();
-      });
     }
+    
    
     router.get('/', (req, res) => {
 
@@ -87,27 +95,44 @@ module.exports = (function() {
       }
     });
 
+
+
     router.post('/', (req, res) => {
-      // console.log("POST request received at /users");
-
-      var query = 
-      "INSERT INTO Users(fname, lname, email, phone, smoking, pets, gender, age) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-      var dataToInsert = [
-        req.body.fname,
-        req.body.lname,
-        req.body.email,
-        req.body.phone,
-        req.body.smoking,
-        req.body.pet,
-        req.body.gender,
-        req.body.age
-      ]
-
-      db.pool.query(query, dataToInsert, (err, results, fields) => {
-        res.redirect('/users');
-      });
+      const query = `
+        INSERT INTO Users (fname, lname, email, phone, smoking, pets, gender, age)
+        VALUES (@fname, @lname, @email, @phone, @smoking, @pet, @gender, @age)
+      `;
+    
+      const dataToInsert = {
+        fname: { type: sql.VarChar, value: req.body.fname },
+        lname: { type: sql.VarChar, value: req.body.lname },
+        email: { type: sql.VarChar, value: req.body.email },
+        phone: { type: sql.VarChar, value: req.body.phone },
+        smoking: { type: sql.VarChar, value: req.body.smoking },
+        pet: { type: sql.VarChar, value: req.body.pet },
+        gender: { type: sql.VarChar, value: req.body.gender },
+        age: { type: sql.Int, value: req.body.age },
+      };
+    
+      sql.connect(config)
+        .then((pool) => {
+          const request = pool.request();
+          Object.keys(dataToInsert).forEach((key) => {
+            request.input(key, dataToInsert[key].type, dataToInsert[key].value);
+          });
+          return request.query(query);
+        })
+        .then(() => {
+          res.redirect('/users');
+        })
+        .catch((err) => {
+          console.error('Error executing query:', err);
+          res.sendStatus(500);
+        });
     });
+    
+
+
 
     router.post('/search', (req, res) => {
       // console.log("GET request received at /users/search, for fname:"+ req.body.fname);
@@ -124,36 +149,72 @@ module.exports = (function() {
       }
     });
 
-    router.post('/delete/:user_id', (req, res) => {
-      // console.log("POST request received at /users/delete, for user_id:"+ req.params.user_id);
 
-      var query = "DELETE FROM Users WHERE user_id = ?;"
-      db.pool.query(query, req.params.user_id, (err, results, fields) => {
-        res.redirect('/users');
-      });
-        
-      
+    
+    router.post('/delete/:user_id', (req, res) => {
+      const query = 'DELETE FROM Users WHERE user_id = @user_id';
+    
+      const dataToDelete = {
+        user_id: {
+          type: sql.Int,
+          value: req.params.user_id
+        }
+      };
+    
+      sql.connect(config)
+        .then((pool) => {
+          return pool.request().input('user_id', dataToDelete.user_id.type, dataToDelete.user_id.value).query(query);
+        })
+        .then(() => {
+          res.redirect('/users');
+        })
+        .catch((err) => {
+          console.error('Error executing query:', err);
+          res.sendStatus(500);
+        });
     });
+    
+    
+
 
     router.post('/update/:user_id', (req, res) => {
-      var query = "UPDATE Users SET fname = ?, lname = ?, email = ?, phone = ?, smoking = ?, pets = ?, gender = ?, age = ? WHERE user_id = ?; ";
-      
-      var dataToInsert = [
-        req.body.fname,
-        req.body.lname,
-        req.body.email,
-        req.body.phone,
-        req.body.smoking,
-        req.body.pet,
-        req.body.gender,
-        req.body.age,
-        req.params.user_id
-      ]
-
-      db.pool.query(query, dataToInsert, (err, results, fields) => {
-        res.redirect('/users');
-      });
+      const query = `
+        UPDATE Users
+        SET fname = @fname, lname = @lname, email = @email, phone = @phone,
+            smoking = @smoking, pets = @pet, gender = @gender, age = @age
+        WHERE user_id = @user_id
+      `;
+        
+      const dataToUpdate = {
+        fname: { name: 'fname', type: sql.VarChar, value: req.body.fname },
+        lname: { name: 'lname', type: sql.VarChar, value: req.body.lname },
+        email: { name: 'email', type: sql.VarChar, value: req.body.email },
+        phone: { name: 'phone', type: sql.VarChar, value: req.body.phone },
+        smoking: { name: 'smoking', type: sql.VarChar, value: req.body.smoking },
+        pet: { name: 'pet', type: sql.VarChar, value: req.body.pet },
+        gender: { name: 'gender', type: sql.VarChar, value: req.body.gender },
+        age: { name: 'age', type: sql.Int, value: req.body.age },
+        user_id: { name: 'user_id', type: sql.Int, value: req.params.user_id },
+      };
+    
+      sql.connect(config)
+        .then((pool) => {
+          const request = pool.request();
+          for (const key in dataToUpdate) {
+            request.input(key, dataToUpdate[key].type, dataToUpdate[key].value);
+          }
+          return request.query(query);
+        })
+        .then(() => {
+          res.redirect('/users');
+        })
+        .catch((err) => {
+          console.error('Error executing query:', err);
+          res.sendStatus(500);
+        });
     });
+    
+    
 
     //This router object is what handles the requests to "/users"
     return router;

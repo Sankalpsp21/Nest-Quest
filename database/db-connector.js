@@ -1,14 +1,18 @@
 // Get an instance of mysql we can use in the app
-var mysql = require('mysql')
+var sql = require('mssql');
 
-// Create a 'connection pool' using the provided credentials
-var pool = mysql.createPool({
-    connectionLimit : 10,
-    host            : 'classmysql.engr.oregonstate.edu',
-    user            : 'cs340_patilsa',
-    password        : '2718',
-    database        : 'cs340_patilsa'
-})
+const config = {
+  user: process.env.NQDB_USER,
+  password: process.env.NQDB_PASSWORD,
+  server: process.env.NQDB_SERVER,
+  database: process.env.NQDB_DATABASE,
+  options: {
+    encrypt: true, // For secure connection
+  },
+};
 
-// Export it for use in our applicaiton
-module.exports.pool = pool;
+// Export the sql object along with the config for use in our application
+module.exports = {
+  sql: sql,
+  config: config,
+};

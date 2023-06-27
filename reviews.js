@@ -10,106 +10,156 @@ module.exports = (function() {
   // 3. Search queries
   // 4. Rendering the page
 
-  function getUserIDs(res, context, done){
-    let query1 = "SELECT user_id FROM Users";
-    db.pool.query(query1, (err, rows, fields) => {
-      if(err) {
-        console.log("Failed to query for users: " + err);
+  function getUserIDs(res, context, done) {
+    const query = "SELECT user_id FROM Users";
+
+    db.sql.connect(db.config, (err) => {
+      if (err) {
+        console.log("Failed to connect to the database: " + err);
         res.sendStatus(500);
         return;
       }
 
-      // return the context with a list of user_ids calles users
-      context.user_id = rows.map((row) => {
-        return {
-          user_id: row.user_id,
-        };
-      });
-      done();
+      const request = new db.sql.Request();
 
-      // console.log(context);
+      request.query(query, (err, result) => {
+        if (err) {
+          console.log("Failed to query for users: " + err);
+          res.sendStatus(500);
+          return;
+        }
+
+        // return the context with a list of user_ids called users
+        context.user_id = result.recordset.map((row) => {
+          return {
+            user_id: row.user_id,
+          };
+        });
+
+        done();
+      });
     });
   }
 
-  function getAddresses(res, context, done){
-    let query = "SELECT address FROM Properties";
-    db.pool.query(query, (err, rows, fields) => {
-      if(err){
-        console.log("Failed to query for properties: " + err);
+  function getAddresses(res, context, done) {
+    const query = "SELECT address FROM Properties";
+
+    db.sql.connect(db.config, (err) => {
+      if (err) {
+        console.log("Failed to connect to the database: " + err);
         res.sendStatus(500);
         return;
       }
-      context.address = rows.map((row) =>{
-        return {
-          address: row.address,
-        };
-      });
 
-      done();
-    }
-    )
+      const request = new db.sql.Request();
+
+      request.query(query, (err, result) => {
+        if (err) {
+          console.log("Failed to query for properties: " + err);
+          res.sendStatus(500);
+          return;
+        }
+
+        context.address = result.recordset.map((row) => {
+          return {
+            address: row.address,
+          };
+        });
+
+        done();
+      });
+    });
   }
 
-  function getReviews(res, context, done){
-    let query1 = "SELECT * FROM Reviews";
-    db.pool.query(query1, (err, rows, fields) => {
-      if(err) {
-        console.log("Failed to query for users: " + err);
+  function getReviews(res, context, done) {
+    const query = "SELECT * FROM Reviews";
+
+    db.sql.connect(db.config, (err) => {
+      if (err) {
+        console.log("Failed to connect to the database: " + err);
         res.sendStatus(500);
         return;
       }
 
-      // return the context with a list of
-      context.review = rows.map((row) => {
-        return {
-          review_id: row.review_id,
-          user_id: row.user_id,
-          address: row.address,
-          stars: row.stars,
-          description: row.description,
+      const request = new db.sql.Request();
 
-        };
+      request.query(query, (err, result) => {
+        if (err) {
+          console.log("Failed to query for reviews: " + err);
+          res.sendStatus(500);
+          return;
+        }
+
+        context.review = result.recordset.map((row) => {
+          return {
+            review_id: row.review_id,
+            user_id: row.user_id,
+            address: row.address,
+            stars: row.stars,
+            description: row.description,
+          };
+        });
+
+        done();
       });
-
-      done();
     });
   }
 
   router.get('/', (req, res) => {
-    // Get the username from your data source or wherever it is available
-    context = {};
+    var context = {};
+
     getUserIDs(res, context, done);
     getAddresses(res, context, done);
     getReviews(res, context, done);
 
-
     var count = 0;
-    function done(){
+
+    function done() {
       count++;
-      if (count == 3){
+      if (count == 3) {
         res.render('reviews', context);
       }
     }
   });
 
-
   router.post('/', (req, res) => {
     console.log("POST request received at /reviews");
 
-    var query = "INSERT INTO Reviews(user_id, address, stars, description) VALUES (?, ?, ?, ?)";
+    var query =
+      "INSERT INTO Reviews(user_id, address, stars, description) VALUES (@user_id, @address, @stars, @description)";
 
-    var dataToInsert = [
-      req.body.user_id,
-      req.body.address,
-      req.body.stars,
-      req.body.description,
-    ]
+    var dataToInsert = {
+      user_id: { type: db.sql.Int, value: req.body.user_id },
+      address: { type: db.sql.VarChar, value: req.body.address },
+      stars: { type: db.sql.Int, value: req.body.stars },
+      description: { type: db.sql.VarChar, value: req.body.description },
+    };
 
-    db.pool.query(query, dataToInsert, (err, results, fields) => {
-      res.redirect('/reviews');
+    db.sql.connect(db.config, (err) => {
+      if (err) {
+        console.log("Failed to connect to the database: " + err);
+        res.sendStatus(500);
+        return;
+      }
+
+      const request = new db.sql.Request();
+
+      for (const key in dataToInsert) {
+        request.input(key, dataToInsert[key].type, dataToInsert[key].value);
+      }
+
+      request.query(query, (err, result) => {
+        if (err) {
+          console.log("Error executing query: " + err);
+          res.sendStatus(500);
+          return;
+        }
+
+        res.redirect('/reviews');
+      });
     });
   });
 
-  //This router object is what handles the requests to "/reviews"
+  // This router object handles the requests to "/reviews"
   return router;
 })();

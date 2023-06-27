@@ -1,116 +1,134 @@
 module.exports = (function() {
-  // Declare Variables
   var db = require('./database/db-connector');
   var express = require("express");
   var router = express.Router();
   var search_error = "";
   var insert_error = "";
   var update_error = "";
+  var sql = require('mssql');
 
-  // Here, we will write functions to handle
-  // 1. Input validation
-  // 2. Database queries (Create, Select (Read), Update, Delete (CRUD)
-  // 3. Search queries
-  // 4. Rendering the page
-
-  function getProperties(res, context, done){
-    let query1 = "SELECT * FROM Properties";
-    db.pool.query(query1, (err, rows, fields) => {
-      if(err) {
-        console.log("Failed to query for properties: " + err);
-        res.sendStatus(500);
-        return;
-      }
-
-      //Format the data
-      console.log("Fetched properties successfully");
-      context.property = rows.map((row) => {
-        return {
-          address: row.address,
-          rooms: row.rooms,
-          bathrooms: row.bathrooms,
-          sqft: row.sqft,
-          rent: row.rent,
-          utilities: row.utilities,
-          description: row.description,
-        };
-      });
-      
-      done();
+  function getProperties() {
+    return new Promise((resolve, reject) => {
+      const query = "SELECT * FROM Properties";
+      new sql.ConnectionPool(db.config).connect()
+        .then((pool) => {
+          return pool.request().query(query);
+        })
+        .then((result) => {
+          const rows = result.recordset;
+          const properties = rows.map((row) => ({
+            address: row.address,
+            rooms: row.rooms,
+            bathrooms: row.bathrooms,
+            sqft: row.sqft,
+            rent: row.rent,
+            utilities: row.utilities,
+            description: row.description,
+          }));
+          console.log("Fetched properties successfully");
+          resolve(properties);
+        })
+        .catch((err) => {
+          console.error("Failed to query for properties:", err);
+          reject(err);
+        });
     });
   }
 
   router.post('/', (req, res) => {
     console.log("POST request received at /properties");
 
-    var query = "INSERT INTO Properties(address, rooms, bathrooms, sqft, rent, utilities, description) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    const query = "INSERT INTO Properties(address, rooms, bathrooms, sqft, rent, utilities, description) VALUES (@address, @rooms, @bathrooms, @sqft, @rent, @utilities, @description)";
 
+    const dataToInsert = {
+      address: req.body.address,
+      rooms: req.body.rooms,
+      bathrooms: req.body.bathrooms,
+      sqft: req.body.sqft,
+      rent: req.body.rent,
+      utilities: req.body.utilities,
+      description: req.body.description
+    };
 
-    var dataToInsert = [
-      req.body.address,
-      req.body.rooms,
-      req.body.bathrooms,
-      req.body.sqft,
-      req.body.rent,
-      req.body.utilities,
-      req.body.description
-    ]
-
-    db.pool.query(query, dataToInsert, (err, results, fields) => {
-      res.redirect('/properties');
-    });
+    new sql.ConnectionPool(db.config).connect()
+      .then((pool) => {
+        const request = pool.request();
+        Object.keys(dataToInsert).forEach((key) => {
+          request.input(key, dataToInsert[key]);
+        });
+        return request.query(query);
+      })
+      .then(() => {
+        res.redirect('/properties');
+      })
+      .catch((err) => {
+        console.error("Error executing query:", err);
+        res.sendStatus(500);
+      });
   });
 
   router.get('/', (req, res) => {
-
-    context = {};
-
+    var context = {};
     context.search_error = "error message for search";
     context.insert_error = "error message for insert";
-    getProperties(res, context, done);
 
-    //Ensures that the database query is done before rendering the page
-    function done(){
-      // console.log("Rendering page");        
-      // console.log(context);
-      // Render the users.handlebars file with the context
-      res.render('properties', context);
-
-    }
+    getProperties()
+      .then((properties) => {
+        context.property = properties;
+        res.render('properties', context);
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        res.sendStatus(500);
+      });
   });
 
-
   router.post('/delete/:address', (req, res) => {
+    console.log("POST request received at /properties/delete, for address: " + req.params.address);
+    const query = "DELETE FROM Properties WHERE address = @address";
 
-    console.log("POST request received at /properties/delete, for address: "+ req.params.address);
-    var query = "DELETE FROM Properties WHERE address = ?;"
-    db.pool.query(query, req.params.address, (err, results, fields) => {
-      res.redirect('/properties');
-    });
-      
-    
+    new sql.ConnectionPool(db.config).connect()
+      .then((pool) => {
+        return pool.request().input('address', req.params.address).query(query);
+      })
+      .then(() => {
+        res.redirect('/properties');
+      })
+      .catch((err) => {
+        console.error("Error executing query:", err);
+        res.sendStatus(500);
+      });
   });
 
   router.post('/update/:address', (req, res) => {
-   
-    console.log("POST request received at /properties/update, for address: "+ req.params.address);
-    var query = " UPDATE Properties SET rooms = ?,bathrooms = ?, sqft = ?, rent = ?, utilities = ?, description = ? WHERE address = ?";
-    var dataToInsert =[
-      req.body.rooms,
-      req.body.bathrooms,
-      req.body.sqft,
-      req.body.rent,
-      req.body.utilities,
-      req.body.description,
-      req.body.address
-    ]
-    db.pool.query(query, dataToInsert, (err, results, fields) => {
-      res.redirect('/properties');
-    });
-      
-    
+    console.log("POST request received at /properties/update, for address: " + req.params.address);
+    const query = "UPDATE Properties SET rooms = @rooms, bathrooms = @bathrooms, sqft = @sqft, rent = @rent, utilities = @utilities, description = @description WHERE address = @address";
+    const dataToInsert = {
+      address: req.params.address,
+      rooms: req.body.rooms,
+      bathrooms: req.body.bathrooms,
+      sqft: req.body.sqft,
+      rent: req.body.rent,
+      utilities: req.body.utilities,
+      description: req.body.description
+    };
+
+    new sql.ConnectionPool(db.config).connect()
+      .then((pool) => {
+        const request = pool.request();
+        Object.keys(dataToInsert).forEach((key) => {
+          request.input(key, dataToInsert[key]);
+        });
+        return request.query(query);
+      })
+      .then(() => {
+        res.redirect('/properties');
+      })
+      .catch((err) => {
+        console.error("Error executing query:", err);
+        res.sendStatus(500);
+      });
   });
 
-  //This router object is what handles the requests to "/properties"
   return router;
 })();

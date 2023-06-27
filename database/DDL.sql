@@ -1,8 +1,5 @@
 -- Makes the database
 
-SET FOREIGN_KEY_CHECKS = 0;
-SET AUTOCOMMIT = 0;
-
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users(
   user_id int NOT NULL AUTO_INCREMENT,
@@ -26,8 +23,8 @@ CREATE TABLE Properties(
   bathrooms int NOT NULL,
   sqft varchar(45) NOT NULL,
   rent varchar(45) NOT NULL,
-  utilities varchar(45) NOT NULL,
-  description varchar(45) NOT NULL,
+  utilities varchar(300) NOT NULL,
+  description varchar(300) NOT NULL,
   
   PRIMARY KEY (address),
   CONSTRAINT address UNIQUE (address)
@@ -77,7 +74,7 @@ CREATE TABLE Reviews(
   user_id int,
   address varchar(45) NOT NULL,
   stars int NOT NULL,
-  description varchar(45),
+  description varchar(300),
 
   PRIMARY KEY (review_id),
   CONSTRAINT review_id UNIQUE (review_id),
@@ -143,6 +140,3 @@ INSERT INTO Reviews(stars, description, address, user_id) VALUES
 	(4, 'Included electricity is a huge plus', '876 Robin BLVD.', 2),
 	(3, 'The rooms have a weird smell and the carpets are discolored', '23465 West Ave.', 2);
 
-
-SET FOREIGN_KEY_CHECKS=1;
-COMMIT;
