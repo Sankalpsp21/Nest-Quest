@@ -17,7 +17,7 @@ body {
 }
 
 .mainbody{
-    margin: 5px;
+    padding-left: 1.25rem;
     display: inline-block;
 }
 
@@ -96,6 +96,10 @@ td button{
     border-width: 5px;
     box-shadow: 0 0 50px rgba(0,0,0,0.8);
     padding: 5px;
+}
+
+.fa-solid{
+    padding-right: 10px;
 }
 
 .table-display{
