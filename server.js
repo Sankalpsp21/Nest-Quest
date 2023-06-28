@@ -3,7 +3,7 @@ const exphbs = require('express-handlebars');
 
 //Setting up the templating engine
 const app = express();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8000;
 
 
 app.use(express.json())
