@@ -1,5 +1,5 @@
 html{
-    background-color:#cecccc;
+    background-color:#dbd8d8;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -16,6 +16,16 @@ table, th, td {
     border: 1px solid black;
     border-width: 2px;
     border-color: black;
+}
+
+table{
+    border-collapse: separate;
+    border-spacing: 5 5px;
+}
+
+td, th{
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 body {
@@ -214,3 +224,15 @@ button{
 .submit-button{
     border-radius: 3px;
 }
+
+
+.search-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .search-user label {
+    margin-bottom: 10px;
+  }
